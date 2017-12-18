@@ -211,7 +211,7 @@
 
 (function(){
 
-    var JRM = window.JRM = window.JRM || {
+    var Marquee = window.Marquee = window.Marquee || {
 
       apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
       apiShowtimeCache: {},
@@ -223,16 +223,16 @@
       $getShowtimesForm: document.getElementById('get-showtimes-form'),
 
       init: function() {
-        JRM.loadCookies();
-        // JRM.setupDates();
-        JRM.updateGroupings();
+        Marquee.loadCookies();
+        // Marquee.setupDates();
+        Marquee.updateGroupings();
 
-        JRM.$getShowtimesForm.addEventListener('submit', JRM.submitShowtimesForm);
-        JRM.$dateButtons.forEach(function(button){
-          button.addEventListener('change', JRM.changeDate);
+        Marquee.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
+        Marquee.$dateButtons.forEach(function(button){
+          button.addEventListener('change', Marquee.changeDate);
         });
-        JRM.$groupButtons.forEach(function(button){
-          button.addEventListener('change', JRM.changeGrouping);
+        Marquee.$groupButtons.forEach(function(button){
+          button.addEventListener('change', Marquee.changeGrouping);
         });
       },
 
@@ -259,9 +259,9 @@
       // },
 
       changeDate: function() {
-        if (JRM.submittable()) {
-          JRM.clearData();
-          JRM.fetchMovieTimes();
+        if (Marquee.submittable()) {
+          Marquee.clearData();
+          Marquee.fetchMovieTimes();
         }
       },
 
@@ -270,22 +270,22 @@
       },
 
       changeGrouping: function() {
-        JRM.updateGroupings();
+        Marquee.updateGroupings();
         if (this.checked) {
-          JRM.renderShowtimes();
+          Marquee.renderShowtimes();
         }
       },
 
       updateGroupings: function() {
-        JRM.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
-        JRM.secondaryGroup = JRM.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
+        Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
+        Marquee.secondaryGroup = Marquee.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
       },
 
       submitShowtimesForm: function(event) {
         event.preventDefault();
-        if (JRM.submittable()) {
-          JRM.clearData();
-          JRM.fetchMovieTimes();
+        if (Marquee.submittable()) {
+          Marquee.clearData();
+          Marquee.fetchMovieTimes();
         }
       },
 
@@ -299,25 +299,25 @@
       },
 
       clearData: function() {
-        JRM.apiShowtimeData    = [];
-        JRM.dataForMovie       = {};
-        JRM.dataForTheater     = {};
-        JRM.showtimesByMovie   = {};
-        JRM.showtimesByTheater = {};
-        JRM.showtimeBlocks     = {};
+        Marquee.apiShowtimeData    = [];
+        Marquee.dataForMovie       = {};
+        Marquee.dataForTheater     = {};
+        Marquee.showtimesByMovie   = {};
+        Marquee.showtimesByTheater = {};
+        Marquee.showtimeBlocks     = {};
       },
 
       fetchMovieTimes: function() {
-        if (JRM.cached()) {
-          JRM.renderFromCache();
+        if (Marquee.cached()) {
+          Marquee.renderFromCache();
         } else {
           var request = new XMLHttpRequest();
-          request.open('GET', JRM.apiUrl + JRM._urlParams(JRM.serializeForm()), true);
+          request.open('GET', Marquee.apiUrl + Marquee._urlParams(Marquee.serializeForm()), true);
           request.onload = function() {
             if (this.status >= 200 && this.status < 400) {
-              JRM.saveCookies();
-              JRM.apiShowtimeCache[JRM.makeCacheKey()] = JSON.parse(this.response);
-              JRM.renderFromCache();
+              Marquee.saveCookies();
+              Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = JSON.parse(this.response);
+              Marquee.renderFromCache();
             } else {
               alert('Server error');
             }
@@ -330,31 +330,31 @@
       },
 
       makeCacheKey: function() {
-        var data = JRM.serializeForm();
+        var data = Marquee.serializeForm();
         return data.zip + '--' + data.radius + '--' + data.startDate;
       },
 
       cached: function() {
-        return JRM.apiShowtimeCache.hasOwnProperty(JRM.makeCacheKey());
+        return Marquee.apiShowtimeCache.hasOwnProperty(Marquee.makeCacheKey());
       },
 
       renderFromCache: function() {
-        JRM.apiShowtimeData = JRM.apiShowtimeCache[JRM.makeCacheKey()];
-        JRM.processShowtimes();
-        JRM.renderShowtimes();
+        Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
+        Marquee.processShowtimes();
+        Marquee.renderShowtimes();
       },
 
       renderShowtimes: function() {
         var html = '';
-        var showtimes = JRM['showtimesBy'+JRM.primaryGroup];
+        var showtimes = Marquee['showtimesBy'+Marquee.primaryGroup];
 
-        JRM.eachObject(showtimes, function(secondaryObject, primaryId) {
-          var primaryEntity = JRM['dataFor'+JRM.primaryGroup][primaryId];
+        Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
+          var primaryEntity = Marquee['dataFor'+Marquee.primaryGroup][primaryId];
           html += '<section class="primary-section">';
           html += '<h1 class="primary-label">'+primaryEntity.label+'</h1>';
           html += '<div class="secondary-sections">';
-          JRM.eachObject(secondaryObject, function(block, secondaryId) {
-            var secondaryEntity = JRM['dataFor'+JRM.secondaryGroup][secondaryId];
+          Marquee.eachObject(secondaryObject, function(block, secondaryId) {
+            var secondaryEntity = Marquee['dataFor'+Marquee.secondaryGroup][secondaryId];
             html += '<section class="secondary-section">';
             html += '<h2 class="secondary-label">'+secondaryEntity.label+'</h2>';
             html += '<ul class="showtime-block">'+block.html+'</ul>';
@@ -363,23 +363,23 @@
           html += '</div>';
           html += '</section>';
         });
-        JRM.$showtimes.innerHTML = html;
+        Marquee.$showtimes.innerHTML = html;
       },
 
       processShowtimes: function() {
-        JRM.apiShowtimeData.forEach(function(movie) {
-          JRM.createMovie(movie);
+        Marquee.apiShowtimeData.forEach(function(movie) {
+          Marquee.createMovie(movie);
           movie.showtimes.forEach(function(showtime) {
-            JRM.createTheater(showtime.theatre);
-            JRM.seedGroupings(movie.rootId, showtime.theatre.id);
-            JRM.addToShowtimeBlock(movie, showtime);
+            Marquee.createTheater(showtime.theatre);
+            Marquee.seedGroupings(movie.rootId, showtime.theatre.id);
+            Marquee.addToShowtimeBlock(movie, showtime);
           });
         });
-        JRM.groupShowtimes();
+        Marquee.groupShowtimes();
       },
 
       createMovie: function(movie) {
-        JRM.dataForMovie[movie.rootId] = JRM.dataForMovie[movie.rootId] || {
+        Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
           label:    movie.title,
           year:     movie.releaseYear,
           rating:   movie.ratings ? movie.ratings[0].code : 'n/a',
@@ -389,41 +389,41 @@
       },
 
       createTheater: function(theater) {
-        JRM.dataForTheater[theater.id] = JRM.dataForTheater[theater.id] || {
+        Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
           label: theater.name, 
         };
       },
 
       addToShowtimeBlock: function(movie, showtime) {
         var uid = movie.rootId + '-' + showtime.theatre.id;
-        JRM.showtimeBlocks[uid] = JRM.showtimeBlocks[uid] || {showtimes: [], html: ''};
+        Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: [], html: ''};
 
         var showtimeData = {
           movieId:   movie.rootId,
           theaterId: showtime.theatre.id,
           dateTime:  showtime.dateTime,
           ticket:    showtime.ticketUri,
-          threed:    JRM.is3D(movie),
+          threed:    Marquee.is3D(movie),
         };
-        JRM.showtimeBlocks[uid].showtimes.push(showtimeData);
+        Marquee.showtimeBlocks[uid].showtimes.push(showtimeData);
         // TODO: Sort this showtime block by movie time (necessitating moving HTML generation out to a separate process).
-        JRM.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'">'+JRM.createShowtimeLink(showtimeData)+'</li>';
+        Marquee.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
       },
 
       seedGroupings: function(movieId, theaterId) {
-        JRM.showtimesByMovie[movieId] = JRM.showtimesByMovie[movieId] || {};
-        JRM.showtimesByMovie[movieId][theaterId] = JRM.showtimesByMovie[movieId][theaterId] || {};
-        JRM.showtimesByTheater[theaterId] = JRM.showtimesByTheater[theaterId] || {};
-        JRM.showtimesByTheater[theaterId][movieId] = JRM.showtimesByTheater[theaterId][movieId] || {};
+        Marquee.showtimesByMovie[movieId] = Marquee.showtimesByMovie[movieId] || {};
+        Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
+        Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
+        Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
       },
 
       groupShowtimes: function() {
-        JRM.eachObject(JRM.showtimeBlocks, function(block, uid) {
+        Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
           var ids       = uid.split('-');
           var movieId   = ids[0];
           var theaterId = ids[1];
-          JRM.showtimesByMovie[movieId][theaterId]   = block;
-          JRM.showtimesByTheater[theaterId][movieId] = block;
+          Marquee.showtimesByMovie[movieId][theaterId]   = block;
+          Marquee.showtimesByTheater[theaterId][movieId] = block;
         });
       },
 
@@ -439,7 +439,7 @@
 
       createShowtimeLink: function(showtime) {
         // TODO: Disable if in the past
-        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+JRM.createThreeD(showtime)+'</a>';
+        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+Marquee.createThreeD(showtime)+'</a>';
       },
 
       _urlParams: function(data) {
@@ -457,7 +457,7 @@
       },
 
     };
-    JRM.init();
+    Marquee.init();
 
 
 })();
