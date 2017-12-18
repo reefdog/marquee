@@ -1,6 +1,6 @@
 # Marquee
 
-Movie showtimes for US/Canada the way I like them. [Design available here.](https://www.figma.com/file/DbW9jdyS5U2tdlKCAjHUlPMm/Marquee)
+Movie showtimes for US/Canada the [way I like them](https://www.figma.com/file/DbW9jdyS5U2tdlKCAjHUlPMm/Marquee).
 
 ## Requirements
 
