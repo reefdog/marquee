@@ -6,7 +6,7 @@ Movie showtimes for US/Canada the way I like them. [Design available here.](http
 
 - [Gracenote API key](http://developer.tmsapi.com)
 
-## How to use it
+## Instructions
 
 1. Point a web server at `index.html`
 
