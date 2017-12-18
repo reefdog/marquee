@@ -73,10 +73,10 @@
       text-decoration: underline;
     }
 
-    .threed {
+    .threed,
+    .imax {
       font-size: 1.2rem;
       font-weight: bold;
-/*      margin-left: 0.3rem;*/
     }
     .threed-blue {
       color: blue;
@@ -404,10 +404,11 @@
           dateTime:  showtime.dateTime,
           ticket:    showtime.ticketURI,
           threed:    Marquee.is3D(movie),
+          imax:      Marquee.isIMAX(movie),
         };
         Marquee.showtimeBlocks[uid].showtimes.push(showtimeData);
         // TODO: Sort this showtime block by movie time (necessitating moving HTML generation out to a separate process).
-        Marquee.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
+        Marquee.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'" data-imax="'+showtimeData.imax+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
       },
 
       seedGroupings: function(movieId, theaterId) {
@@ -428,18 +429,24 @@
       },
 
       is3D: function(movie) {
-        // Idiotically, the only way to know.
-        return (movie.title.substr(-3) === ' 3D');
+        return (movie.title.indexOf('3D') != -1);
+      },
+
+      isIMAX: function(movie) {
+        return (movie.title.indexOf('IMAX') != -1);
       },
 
       createThreeD: function(showtime) {
-        // Idiotically, the only way to know.
         return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
+      },
+
+      createIMAX: function(showtime) {
+        return (showtime.imax ? '<span class="imax"> IMAX' : '');
       },
 
       createShowtimeLink: function(showtime) {
         // TODO: Disable if in the past
-        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+Marquee.createThreeD(showtime)+'</a>';
+        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</a>';
       },
 
       _urlParams: function(data) {
