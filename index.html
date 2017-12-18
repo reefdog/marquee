@@ -2,208 +2,208 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Showtimes</title>
-	<link rel="stylesheet" href="/assets/normalize.css" type="text/css" media="screen">
-	<style type="text/css">
-		*,*:before,*:after {
-			box-sizing: border-box;
-		}
+  <link rel="stylesheet" href="/assets/normalize.css" type="text/css" media="screen">
+  <style type="text/css">
+    *,*:before,*:after {
+      box-sizing: border-box;
+    }
 
-		html {
-			font-size: 10px;
-		}
+    html {
+      font-size: 10px;
+    }
 
-		body {
-			font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-			font-size: 1.4rem;
-			line-height: 2.2rem;
-			color: black;
-			background: white;
-			padding: 1rem;
-		}
+    body {
+      font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+      color: black;
+      background: white;
+      padding: 1rem;
+    }
 
-		@media (min-width: 600px) {
-			body {
-				padding: 4rem;
-			}
-		}
+    @media (min-width: 600px) {
+      body {
+        padding: 4rem;
+      }
+    }
 
 
-		.primary-section {
-			margin: 7rem 0;
-		}
+    .primary-section {
+      margin: 7rem 0;
+    }
 
-		.secondary-section {
-			margin: 0 0 2rem 0;
-		}
+    .secondary-section {
+      margin: 0 0 2rem 0;
+    }
 
-		.primary-label {
-			font-size: 2.2rem;
-			font-weight: 700;
-			margin: 0 0 2rem 0;
-		}
-		.secondary-label {
-			font-size: 1.6rem;
-			font-weight: 600;
-			margin: 0 0 0.5rem 0;
-		}
+    .primary-label {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0 0 2rem 0;
+    }
+    .secondary-label {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
 
-		.showtime-block {
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
-		}
-		.showtime-block > li {
-			margin: 0;
-			padding: 0;
-			display: inline-block;
-			margin-right: 2rem;
-		}
+    .showtime-block {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    .showtime-block > li {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      margin-right: 2rem;
+    }
 
-		.primary-label a,
-		.secondary-label a,
-		.showtime-block a {
-			color: inherit;
-			text-decoration: none;
-		}
-		.primary-label a:hover,
-		.secondary-label a:hover,
-		.showtime-block a:hover {
-			text-decoration: underline;
-		}
+    .primary-label a,
+    .secondary-label a,
+    .showtime-block a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .primary-label a:hover,
+    .secondary-label a:hover,
+    .showtime-block a:hover {
+      text-decoration: underline;
+    }
 
-		.threed {
-			font-size: 1.2rem;
-			font-weight: bold;
-/*			margin-left: 0.3rem;*/
-		}
-		.threed-blue {
-			color: blue;
-		}
-		.threed-red {
-			color: red;;
-		}
+    .threed {
+      font-size: 1.2rem;
+      font-weight: bold;
+/*      margin-left: 0.3rem;*/
+    }
+    .threed-blue {
+      color: blue;
+    }
+    .threed-red {
+      color: red;;
+    }
 
-		#get-showtimes-form {
-			display: flex;
-			flex-wrap: wrap;
-			height: 6rem;
-			line-height: 1.5rem;
-		}
+    #get-showtimes-form {
+      display: flex;
+      flex-wrap: wrap;
+      height: 6rem;
+      line-height: 1.5rem;
+    }
 
-		.input-group {
-			display: flex;
-			margin-right: 2rem;
-		}
-		.input-group:last-child {
-			margin-right: 0;
-		}
+    .input-group {
+      display: flex;
+      margin-right: 2rem;
+    }
+    .input-group:last-child {
+      margin-right: 0;
+    }
 
-		.input-group > label {
-		}
+    .input-group > label {
+    }
 
-		.block-radio-button {
-			cursor: pointer;
-		}
-		.block-radio-button > input[type=radio] {
-			display: none;
-		}
-		.block-radio-button > .label {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100%;
-			border: 0.1rem solid gray;
-			text-align: center;
-			white-space: nowrap;
-			padding-left: 1.5rem;
-			padding-right: 1.5rem;
-			margin-left: -0.1rem;
-			color: #333;
-		}
-		.block-radio-button > input[type=radio]:checked + .label {
-			z-index: 1;
-			border: 0.4rem solid #2F80ED;
-			padding-left: 1.2rem;
-			padding-right: 1.2rem;
-			color: #000;
-			font-weight: bold;
-		}
+    .block-radio-button {
+      cursor: pointer;
+    }
+    .block-radio-button > input[type=radio] {
+      display: none;
+    }
+    .block-radio-button > .label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      border: 0.1rem solid gray;
+      text-align: center;
+      white-space: nowrap;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      margin-left: -0.1rem;
+      color: #333;
+    }
+    .block-radio-button > input[type=radio]:checked + .label {
+      z-index: 1;
+      border: 0.4rem solid #2F80ED;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      color: #000;
+      font-weight: bold;
+    }
 
-	</style>
+  </style>
 </head>
 <body>
 
 <header>
-	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
-		<div class="input-group">
-			<input name="password" type="text" placeholder="Enter the passphrase...">
-		</div>
-		<div class="input-group">
-			<input name="zip" type="text" placeholder="ZIP">
-			<select name="radius">
-				<option selected>5</option>
-				<option>10</option>
-				<option>50</option>
-				<option>100</option>
-			</select>
-			<button type="submit">Find</button>
-		</div>
-		<div id="date-options" class="input-group">
-			<label class="block-radio-button"><input value="2017-12-18" name="startDate" type="radio" checked> <span class="label today">Monday<br>Dec 18 (Today)</span></label>
-			<label class="block-radio-button"><input value="2017-12-19" name="startDate" type="radio">         <span class="label">Tue<br>Dec 19</span></label>
-			<label class="block-radio-button"><input value="2017-12-20" name="startDate" type="radio">         <span class="label">Wed<br>Dec 20</span></label>
-			<label class="block-radio-button"><input value="2017-12-21" name="startDate" type="radio">         <span class="label">Thu<br>Dec 21</span></label>
-		</div>
-		<div class="input-group">
-			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio" checked> <span class="label">Theater</span></label>
-			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio">         <span class="label">Movie</span></label>
-		</div>
-	</form>
+  <form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
+    <div class="input-group">
+      <input name="password" type="text" placeholder="Enter the passphrase...">
+    </div>
+    <div class="input-group">
+      <input name="zip" type="text" placeholder="ZIP">
+      <select name="radius">
+        <option selected>5</option>
+        <option>10</option>
+        <option>50</option>
+        <option>100</option>
+      </select>
+      <button type="submit">Find</button>
+    </div>
+    <div id="date-options" class="input-group">
+      <label class="block-radio-button"><input value="2017-12-18" name="startDate" type="radio" checked> <span class="label today">Monday<br>Dec 18 (Today)</span></label>
+      <label class="block-radio-button"><input value="2017-12-19" name="startDate" type="radio">         <span class="label">Tue<br>Dec 19</span></label>
+      <label class="block-radio-button"><input value="2017-12-20" name="startDate" type="radio">         <span class="label">Wed<br>Dec 20</span></label>
+      <label class="block-radio-button"><input value="2017-12-21" name="startDate" type="radio">         <span class="label">Thu<br>Dec 21</span></label>
+    </div>
+    <div class="input-group">
+      <label class="block-radio-button"><input value="Theater" name="groupBy" type="radio" checked> <span class="label">Theater</span></label>
+      <label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio">         <span class="label">Movie</span></label>
+    </div>
+  </form>
 </header>
 
 <main id="showtimes">
-	<!-- <section class="primary-section"><h1 class="primary-label">Elf</h1><div class="secondary-sections"><section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=34711&amp;d=2017-12-16">12:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Star Wars: The Last Jedi</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">10:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">19:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">20:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">22:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">22:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">23:15</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">09:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">11:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">16:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">17:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">20:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">20:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">22:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">23:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">10:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">13:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">14:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">19:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">21:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">21:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">23:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">08:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">22:30</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">13:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">17:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">20:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">13:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">15:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">16:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">20:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">22:45</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Thor: Ragnarok</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">09:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">12:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">15:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">18:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">21:45</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Justice League</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">10:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">13:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">16:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">22:15</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">18:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">21:15</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Wonder</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">11:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">15:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">22:30</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">15:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">21:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Just Getting Started</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170420&amp;d=2017-12-16">13:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170420&amp;d=2017-12-16">17:10</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">09:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">11:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">13:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">16:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">19:05</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">21:40</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">17:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">19:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">The Star</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170393&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170393&amp;d=2017-12-16">15:10</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">09:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">11:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">13:35</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">14:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">17:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">22:15</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Daddy's Home 2</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">10:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">13:25</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">16:05</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">18:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">21:25</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">12:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">15:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">18:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">21:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Ferdinand</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">10:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">12:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">14:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">16:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">17:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">18:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">20:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">21:40</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">10:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">13:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">18:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171504&amp;d=2017-12-16">16:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171504&amp;d=2017-12-16">21:20</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">14:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">20:15</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Coco</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">15:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">21:00</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">08:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">11:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">14:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">16:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">19:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">22:10</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">16:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172117&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172117&amp;d=2017-12-16">21:45</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Three Billboards Outside Ebbing, Missouri</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">Murder on the Orient Express</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">10:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">13:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">16:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">22:45</a></li></ul></section>
-	<section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">12:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">15:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">21:30</a></li></ul></section></div></section>
-	<section class="primary-section"><h1 class="primary-label">The Man Who Invented Christmas</h1><div class="secondary-sections">
-	<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">10:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">12:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">15:30</a></li></ul></section></div></section> -->
+  <!-- <section class="primary-section"><h1 class="primary-label">Elf</h1><div class="secondary-sections"><section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=34711&amp;d=2017-12-16">12:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Star Wars: The Last Jedi</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">10:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">19:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">20:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">22:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">22:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-16">23:15</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">09:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">11:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">16:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">17:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">20:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">20:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">22:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-16">23:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">10:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">13:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">14:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">19:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">21:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">21:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-16">23:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">08:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-16">22:30</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">13:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">17:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149052&amp;d=2017-12-16">20:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">13:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">15:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">16:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">20:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=149063&amp;d=2017-12-16">22:45</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Thor: Ragnarok</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">09:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">12:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">15:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">18:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-16">21:45</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=157889&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Justice League</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">10:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">13:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">16:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-16">22:15</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">18:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=158786&amp;d=2017-12-16">21:15</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Wonder</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">11:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">15:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">19:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=167705&amp;d=2017-12-16">22:30</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">15:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=167705&amp;d=2017-12-16">21:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Just Getting Started</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170420&amp;d=2017-12-16">13:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170420&amp;d=2017-12-16">17:10</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">09:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">11:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">13:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">16:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">19:05</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170420&amp;d=2017-12-16">21:40</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">14:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">17:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">19:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170420&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">The Star</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170393&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=170393&amp;d=2017-12-16">15:10</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">09:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">11:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170393&amp;d=2017-12-16">13:35</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">14:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">17:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170393&amp;d=2017-12-16">22:15</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Daddy's Home 2</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">10:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">13:25</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">16:05</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">18:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-16">21:25</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">12:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">15:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">18:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=170729&amp;d=2017-12-16">21:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Ferdinand</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">10:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">12:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">14:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">16:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">17:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">18:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">20:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-16">21:40</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">10:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">13:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-16">18:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171504&amp;d=2017-12-16">16:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171504&amp;d=2017-12-16">21:20</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">14:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">17:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=171503&amp;d=2017-12-16">20:15</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Coco</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">10:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">12:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">15:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">18:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=172115&amp;d=2017-12-16">21:00</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">08:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">11:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">14:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">16:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">19:20</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-16">22:10</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">12:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">16:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172115&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172117&amp;d=2017-12-16">15:15</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172117&amp;d=2017-12-16">21:45</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Three Billboards Outside Ebbing, Missouri</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">13:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">16:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">19:00</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=172408&amp;d=2017-12-16">22:00</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">Murder on the Orient Express</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">10:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">13:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">16:40</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">19:45</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-16">22:45</a></li></ul></section>
+  <section class="secondary-section"><h2 class="secondary-label">Regal Tyler Rose Stadium 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">12:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">15:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">18:30</a></li><li><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-16">21:30</a></li></ul></section></div></section>
+  <section class="primary-section"><h1 class="primary-label">The Man Who Invented Christmas</h1><div class="secondary-sections">
+  <section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">10:10</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">12:50</a></li><li><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174103&amp;d=2017-12-16">15:30</a></li></ul></section></div></section> -->
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
@@ -213,255 +213,255 @@
 
     var JRM = window.JRM = window.JRM || {
 
-			apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
-			apiShowtimeCache: {},
-			apiShowtimeData:  [],
+      apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
+      apiShowtimeCache: {},
+      apiShowtimeData:  [],
 
-			$showtimes:        document.getElementById('showtimes'),
-			$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-			$dateButtons:      document.querySelectorAll('[name="startDate"]'),
-			$getShowtimesForm: document.getElementById('get-showtimes-form'),
+      $showtimes:        document.getElementById('showtimes'),
+      $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
+      $dateButtons:      document.querySelectorAll('[name="startDate"]'),
+      $getShowtimesForm: document.getElementById('get-showtimes-form'),
 
-			init: function() {
-				JRM.loadCookies();
-				// JRM.setupDates();
-				JRM.updateGroupings();
+      init: function() {
+        JRM.loadCookies();
+        // JRM.setupDates();
+        JRM.updateGroupings();
 
-				JRM.$getShowtimesForm.addEventListener('submit', JRM.submitShowtimesForm);
-				JRM.$dateButtons.forEach(function(button){
-					button.addEventListener('change', JRM.changeDate);
-				});
-				JRM.$groupButtons.forEach(function(button){
-					button.addEventListener('change', JRM.changeGrouping);
-				});
-			},
+        JRM.$getShowtimesForm.addEventListener('submit', JRM.submitShowtimesForm);
+        JRM.$dateButtons.forEach(function(button){
+          button.addEventListener('change', JRM.changeDate);
+        });
+        JRM.$groupButtons.forEach(function(button){
+          button.addEventListener('change', JRM.changeGrouping);
+        });
+      },
 
-			loadCookies: function() {
-				var zip      = Cookies.get('zip');
-				var password = Cookies.get('password');
-				if (zip) {
-					document.querySelector('[name="zip"]').setAttribute('value', zip);
-				}
-				if (password) {
-					document.querySelector('[name="password"]').setAttribute('value', password);
-				}
-			},
+      loadCookies: function() {
+        var zip      = Cookies.get('zip');
+        var password = Cookies.get('password');
+        if (zip) {
+          document.querySelector('[name="zip"]').setAttribute('value', zip);
+        }
+        if (password) {
+          document.querySelector('[name="password"]').setAttribute('value', password);
+        }
+      },
 
-			saveCookies: function() {
-				Cookies.set('zip', document.querySelector('[name="zip"]').value);
-				Cookies.set('password', document.querySelector('[name="password"]').value);
-			},
+      saveCookies: function() {
+        Cookies.set('zip', document.querySelector('[name="zip"]').value);
+        Cookies.set('password', document.querySelector('[name="password"]').value);
+      },
 
-			// setupDates: function() {
-			// 	var date = new Date;
-			// 	date = date.toJSON().substring(0, 10);
-			// 	document.querySelector('[name="startDate"]').setAttribute('value', date);
-			// },
+      // setupDates: function() {
+      //   var date = new Date;
+      //   date = date.toJSON().substring(0, 10);
+      //   document.querySelector('[name="startDate"]').setAttribute('value', date);
+      // },
 
-			changeDate: function() {
-				if (JRM.submittable()) {
-					JRM.clearData();
-					JRM.fetchMovieTimes();
-				}
-			},
+      changeDate: function() {
+        if (JRM.submittable()) {
+          JRM.clearData();
+          JRM.fetchMovieTimes();
+        }
+      },
 
-			submittable: function() {
-				return (document.querySelector('[name="zip"]').value !== '');
-			},
+      submittable: function() {
+        return (document.querySelector('[name="zip"]').value !== '');
+      },
 
-			changeGrouping: function() {
-				JRM.updateGroupings();
-				if (this.checked) {
-					JRM.renderShowtimes();
-				}
-			},
+      changeGrouping: function() {
+        JRM.updateGroupings();
+        if (this.checked) {
+          JRM.renderShowtimes();
+        }
+      },
 
-			updateGroupings: function() {
-				JRM.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
-				JRM.secondaryGroup = JRM.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
-			},
+      updateGroupings: function() {
+        JRM.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
+        JRM.secondaryGroup = JRM.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
+      },
 
-			submitShowtimesForm: function(event) {
-				event.preventDefault();
-				if (JRM.submittable()) {
-					JRM.clearData();
-					JRM.fetchMovieTimes();
-				}
-			},
+      submitShowtimesForm: function(event) {
+        event.preventDefault();
+        if (JRM.submittable()) {
+          JRM.clearData();
+          JRM.fetchMovieTimes();
+        }
+      },
 
-			serializeForm: function() {
-				return {
-					api_key:   document.querySelector('[name="password"]').value,
-					zip:       document.querySelector('[name="zip"]').value,
-					radius:    document.querySelector('[name="radius"]').value,
-					startDate: document.querySelector('[name="startDate"]:checked').value,
-				};
-			},
+      serializeForm: function() {
+        return {
+          api_key:   document.querySelector('[name="password"]').value,
+          zip:       document.querySelector('[name="zip"]').value,
+          radius:    document.querySelector('[name="radius"]').value,
+          startDate: document.querySelector('[name="startDate"]:checked').value,
+        };
+      },
 
-			clearData: function() {
-				JRM.apiShowtimeData    = [];
-				JRM.dataForMovie       = {};
-				JRM.dataForTheater     = {};
-				JRM.showtimesByMovie   = {};
-				JRM.showtimesByTheater = {};
-				JRM.showtimeBlocks     = {};
-			},
+      clearData: function() {
+        JRM.apiShowtimeData    = [];
+        JRM.dataForMovie       = {};
+        JRM.dataForTheater     = {};
+        JRM.showtimesByMovie   = {};
+        JRM.showtimesByTheater = {};
+        JRM.showtimeBlocks     = {};
+      },
 
-			fetchMovieTimes: function() {
-				if (JRM.cached()) {
-					JRM.renderFromCache();
-				} else {
-					var request = new XMLHttpRequest();
-					request.open('GET', JRM.apiUrl + JRM._urlParams(JRM.serializeForm()), true);
-					request.onload = function() {
-					  if (this.status >= 200 && this.status < 400) {
-							JRM.saveCookies();
-							JRM.apiShowtimeCache[JRM.makeCacheKey()] = JSON.parse(this.response);
-							JRM.renderFromCache();
-					  } else {
-						  alert('Server error');
-					  }
-					};
-					request.onerror = function() {
-					  alert('Connection error');
-					};
-					request.send();
-				}
-			},
+      fetchMovieTimes: function() {
+        if (JRM.cached()) {
+          JRM.renderFromCache();
+        } else {
+          var request = new XMLHttpRequest();
+          request.open('GET', JRM.apiUrl + JRM._urlParams(JRM.serializeForm()), true);
+          request.onload = function() {
+            if (this.status >= 200 && this.status < 400) {
+              JRM.saveCookies();
+              JRM.apiShowtimeCache[JRM.makeCacheKey()] = JSON.parse(this.response);
+              JRM.renderFromCache();
+            } else {
+              alert('Server error');
+            }
+          };
+          request.onerror = function() {
+            alert('Connection error');
+          };
+          request.send();
+        }
+      },
 
-			makeCacheKey: function() {
-				var data = JRM.serializeForm();
-				return data.zip + '--' + data.radius + '--' + data.startDate;
-			},
+      makeCacheKey: function() {
+        var data = JRM.serializeForm();
+        return data.zip + '--' + data.radius + '--' + data.startDate;
+      },
 
-			cached: function() {
-				return JRM.apiShowtimeCache.hasOwnProperty(JRM.makeCacheKey());
-			},
+      cached: function() {
+        return JRM.apiShowtimeCache.hasOwnProperty(JRM.makeCacheKey());
+      },
 
-			renderFromCache: function() {
-		    JRM.apiShowtimeData = JRM.apiShowtimeCache[JRM.makeCacheKey()];
-				JRM.processShowtimes();
-				JRM.renderShowtimes();
-			},
+      renderFromCache: function() {
+        JRM.apiShowtimeData = JRM.apiShowtimeCache[JRM.makeCacheKey()];
+        JRM.processShowtimes();
+        JRM.renderShowtimes();
+      },
 
-			renderShowtimes: function() {
-				var html = '';
-				var showtimes = JRM['showtimesBy'+JRM.primaryGroup];
+      renderShowtimes: function() {
+        var html = '';
+        var showtimes = JRM['showtimesBy'+JRM.primaryGroup];
 
-				JRM.eachObject(showtimes, function(secondaryObject, primaryId) {
-					var primaryEntity = JRM['dataFor'+JRM.primaryGroup][primaryId];
-					html += '<section class="primary-section">';
-					html += '<h1 class="primary-label">'+primaryEntity.label+'</h1>';
-					html += '<div class="secondary-sections">';
-					JRM.eachObject(secondaryObject, function(block, secondaryId) {
-						var secondaryEntity = JRM['dataFor'+JRM.secondaryGroup][secondaryId];
-						html += '<section class="secondary-section">';
-						html += '<h2 class="secondary-label">'+secondaryEntity.label+'</h2>';
-						html += '<ul class="showtime-block">'+block.html+'</ul>';
-						html += '</section>';
-					});
-					html += '</div>';
-					html += '</section>';
-				});
-				JRM.$showtimes.innerHTML = html;
-			},
+        JRM.eachObject(showtimes, function(secondaryObject, primaryId) {
+          var primaryEntity = JRM['dataFor'+JRM.primaryGroup][primaryId];
+          html += '<section class="primary-section">';
+          html += '<h1 class="primary-label">'+primaryEntity.label+'</h1>';
+          html += '<div class="secondary-sections">';
+          JRM.eachObject(secondaryObject, function(block, secondaryId) {
+            var secondaryEntity = JRM['dataFor'+JRM.secondaryGroup][secondaryId];
+            html += '<section class="secondary-section">';
+            html += '<h2 class="secondary-label">'+secondaryEntity.label+'</h2>';
+            html += '<ul class="showtime-block">'+block.html+'</ul>';
+            html += '</section>';
+          });
+          html += '</div>';
+          html += '</section>';
+        });
+        JRM.$showtimes.innerHTML = html;
+      },
 
-			processShowtimes: function() {
-				JRM.apiShowtimeData.forEach(function(movie) {
-					JRM.createMovie(movie);
-					movie.showtimes.forEach(function(showtime) {
-						JRM.createTheater(showtime.theatre);
-						JRM.seedGroupings(movie.rootId, showtime.theatre.id);
-						JRM.addToShowtimeBlock(movie, showtime);
-					});
-				});
-				JRM.groupShowtimes();
-			},
+      processShowtimes: function() {
+        JRM.apiShowtimeData.forEach(function(movie) {
+          JRM.createMovie(movie);
+          movie.showtimes.forEach(function(showtime) {
+            JRM.createTheater(showtime.theatre);
+            JRM.seedGroupings(movie.rootId, showtime.theatre.id);
+            JRM.addToShowtimeBlock(movie, showtime);
+          });
+        });
+        JRM.groupShowtimes();
+      },
 
-			createMovie: function(movie) {
-				JRM.dataForMovie[movie.rootId] = JRM.dataForMovie[movie.rootId] || {
-					label:    movie.title,
-					year:     movie.releaseYear,
-					rating:   movie.ratings ? movie.ratings[0].code : 'n/a',
-					language: movie.titleLang,
-					runtime:  movie.runTime,
-				};
-			},
+      createMovie: function(movie) {
+        JRM.dataForMovie[movie.rootId] = JRM.dataForMovie[movie.rootId] || {
+          label:    movie.title,
+          year:     movie.releaseYear,
+          rating:   movie.ratings ? movie.ratings[0].code : 'n/a',
+          language: movie.titleLang,
+          runtime:  movie.runTime,
+        };
+      },
 
-			createTheater: function(theater) {
-				JRM.dataForTheater[theater.id] = JRM.dataForTheater[theater.id] || {
-					label: theater.name, 
-				};
-			},
+      createTheater: function(theater) {
+        JRM.dataForTheater[theater.id] = JRM.dataForTheater[theater.id] || {
+          label: theater.name, 
+        };
+      },
 
-			addToShowtimeBlock: function(movie, showtime) {
-				var uid = movie.rootId + '-' + showtime.theatre.id;
-				JRM.showtimeBlocks[uid] = JRM.showtimeBlocks[uid] || {showtimes: [], html: ''};
+      addToShowtimeBlock: function(movie, showtime) {
+        var uid = movie.rootId + '-' + showtime.theatre.id;
+        JRM.showtimeBlocks[uid] = JRM.showtimeBlocks[uid] || {showtimes: [], html: ''};
 
-				var showtimeData = {
-					movieId:   movie.rootId,
-					theaterId: showtime.theatre.id,
-					dateTime:  showtime.dateTime,
-					ticket:    showtime.ticketUri,
-					threed:    JRM.is3D(movie),
-				};
-				JRM.showtimeBlocks[uid].showtimes.push(showtimeData);
-				// TODO: Sort this showtime block by movie time (necessitating moving HTML generation out to a separate process).
-				JRM.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'">'+JRM.createShowtimeLink(showtimeData)+'</li>';
-			},
+        var showtimeData = {
+          movieId:   movie.rootId,
+          theaterId: showtime.theatre.id,
+          dateTime:  showtime.dateTime,
+          ticket:    showtime.ticketUri,
+          threed:    JRM.is3D(movie),
+        };
+        JRM.showtimeBlocks[uid].showtimes.push(showtimeData);
+        // TODO: Sort this showtime block by movie time (necessitating moving HTML generation out to a separate process).
+        JRM.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'">'+JRM.createShowtimeLink(showtimeData)+'</li>';
+      },
 
-			seedGroupings: function(movieId, theaterId) {
-				JRM.showtimesByMovie[movieId] = JRM.showtimesByMovie[movieId] || {};
-				JRM.showtimesByMovie[movieId][theaterId] = JRM.showtimesByMovie[movieId][theaterId] || {};
-				JRM.showtimesByTheater[theaterId] = JRM.showtimesByTheater[theaterId] || {};
-				JRM.showtimesByTheater[theaterId][movieId] = JRM.showtimesByTheater[theaterId][movieId] || {};
-			},
+      seedGroupings: function(movieId, theaterId) {
+        JRM.showtimesByMovie[movieId] = JRM.showtimesByMovie[movieId] || {};
+        JRM.showtimesByMovie[movieId][theaterId] = JRM.showtimesByMovie[movieId][theaterId] || {};
+        JRM.showtimesByTheater[theaterId] = JRM.showtimesByTheater[theaterId] || {};
+        JRM.showtimesByTheater[theaterId][movieId] = JRM.showtimesByTheater[theaterId][movieId] || {};
+      },
 
-			groupShowtimes: function() {
-				JRM.eachObject(JRM.showtimeBlocks, function(block, uid) {
-					var ids       = uid.split('-');
-					var movieId   = ids[0];
-					var theaterId = ids[1];
-					JRM.showtimesByMovie[movieId][theaterId]   = block;
-					JRM.showtimesByTheater[theaterId][movieId] = block;
-				});
-			},
+      groupShowtimes: function() {
+        JRM.eachObject(JRM.showtimeBlocks, function(block, uid) {
+          var ids       = uid.split('-');
+          var movieId   = ids[0];
+          var theaterId = ids[1];
+          JRM.showtimesByMovie[movieId][theaterId]   = block;
+          JRM.showtimesByTheater[theaterId][movieId] = block;
+        });
+      },
 
-			is3D: function(movie) {
-				// Idiotically, the only way to know.
-				return (movie.title.substr(-3) === ' 3D');
-			},
+      is3D: function(movie) {
+        // Idiotically, the only way to know.
+        return (movie.title.substr(-3) === ' 3D');
+      },
 
-			createThreeD: function(showtime) {
-				// Idiotically, the only way to know.
-				return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
-			},
+      createThreeD: function(showtime) {
+        // Idiotically, the only way to know.
+        return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
+      },
 
-			createShowtimeLink: function(showtime) {
-				// TODO: Disable if in the past
-				return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+JRM.createThreeD(showtime)+'</a>';
-			},
+      createShowtimeLink: function(showtime) {
+        // TODO: Disable if in the past
+        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+JRM.createThreeD(showtime)+'</a>';
+      },
 
-			_urlParams: function(data) {
-				return Object.keys(data).map(function(key) {
-					return [key, data[key]].map(encodeURIComponent).join("=");
-				}).join("&");
-			},
+      _urlParams: function(data) {
+        return Object.keys(data).map(function(key) {
+          return [key, data[key]].map(encodeURIComponent).join("=");
+        }).join("&");
+      },
 
-			eachObject: function(obj, fn) {
-				for (var key in obj) {
-					if (Object.prototype.hasOwnProperty.call(obj, key)) {
-						fn(obj[key], key);
-					}
-				}
-			},
+      eachObject: function(obj, fn) {
+        for (var key in obj) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            fn(obj[key], key);
+          }
+        }
+      },
 
     };
-		JRM.init();
+    JRM.init();
 
 
 })();
 
-</script>	
+</script>  
 </body>
 </html>
