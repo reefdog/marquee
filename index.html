@@ -88,8 +88,8 @@
     #get-showtimes-form {
       display: flex;
       flex-wrap: wrap;
-      height: 6rem;
-      line-height: 1.5rem;
+      height: 5rem;
+      line-height: 1.4rem;
     }
 
     .input-group {
@@ -114,19 +114,24 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      border: 0.1rem solid gray;
+      border: 0.1rem solid #BDBDBD;
       text-align: center;
       white-space: nowrap;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 1.1rem;
+      padding-right: 1.1rem;
       margin-left: -0.1rem;
       color: #333;
+    }
+    .block-radio-button > .label:hover {
+      border-width: 0.4rem;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
     }
     .block-radio-button > input[type=radio]:checked + .label {
       z-index: 1;
       border: 0.4rem solid #2F80ED;
-      padding-left: 1.2rem;
-      padding-right: 1.2rem;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
       color: #000;
       font-weight: bold;
     }
