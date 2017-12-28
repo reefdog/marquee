@@ -78,11 +78,16 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
-    .threed-blue {
+
+    a .threed-blue {
       color: blue;
     }
-    .threed-red {
+    a .threed-red {
       color: red;;
+    }
+
+    .past {
+      color: #aaa;
     }
 
     #get-showtimes-form {
@@ -444,8 +449,11 @@
       },
 
       createShowtimeLink: function(showtime) {
-        // TODO: Disable if in the past
-        return '<a href="'+showtime.ticket+'">'+showtime.dateTime.substr(-5)+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</a>';
+        if (showtime.moment.isBefore(moment())) {
+          return '<span class="past">'+showtime.moment.format('h:mma')+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</span>';
+        } else {
+          return '<a href="'+showtime.ticket+'">'+showtime.moment.format('h:mma')+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</a>';
+        }
       },
 
       _urlParams: function(data) {
