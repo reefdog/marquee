@@ -212,21 +212,22 @@
       apiShowtimeCache: {},
       apiShowtimeData:  [],
 
-      $showtimes:        document.getElementById('showtimes'),
-      $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-      $dateButtons:      document.querySelectorAll('[name="startDate"]'),
-      $getShowtimesForm: document.getElementById('get-showtimes-form'),
+      els: {
+        $showtimes:        document.getElementById('showtimes'),
+        $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
+        $getShowtimesForm: document.getElementById('get-showtimes-form'),
+      },
 
       init: function() {
         Marquee.loadCookies();
         // Marquee.setupDates();
         Marquee.updateGroupings();
 
-        Marquee.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
-        Marquee.$dateButtons.forEach(function(button){
+        Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
+        Marquee.els.$dateButtons.forEach(function(button){
           button.addEventListener('change', Marquee.changeDate);
         });
-        Marquee.$groupButtons.forEach(function(button){
+        Marquee.els.$groupButtons.forEach(function(button){
           button.addEventListener('change', Marquee.changeGrouping);
         });
       },
@@ -358,7 +359,7 @@
           html += '</div>';
           html += '</section>';
         });
-        Marquee.$showtimes.innerHTML = html;
+        Marquee.els.$showtimes.innerHTML = html;
       },
 
       processShowtimes: function() {
