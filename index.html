@@ -155,15 +155,10 @@
       </select>
       <button type="submit">Find</button>
     </div>
-    <div id="date-options" class="input-group">
-      <label class="block-radio-button"><input value="2017-12-18" name="startDate" type="radio" checked> <span class="label today">Monday<br>Dec 18 (Today)</span></label>
-      <label class="block-radio-button"><input value="2017-12-19" name="startDate" type="radio">         <span class="label">Tue<br>Dec 19</span></label>
-      <label class="block-radio-button"><input value="2017-12-20" name="startDate" type="radio">         <span class="label">Wed<br>Dec 20</span></label>
-      <label class="block-radio-button"><input value="2017-12-21" name="startDate" type="radio">         <span class="label">Thu<br>Dec 21</span></label>
-    </div>
+    <div id="date-options" class="input-group"></div>
     <div class="input-group">
-      <label class="block-radio-button"><input value="Theater" name="groupBy" type="radio" checked> <span class="label">Theater</span></label>
-      <label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio">         <span class="label">Movie</span></label>
+      <label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <span class="label">Movie</span></label>
+      <label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <span class="label">Theater</span></label>
     </div>
   </form>
 </header>
@@ -201,6 +196,7 @@
 <section class="secondary-section"><h2 class="secondary-label">Murder on the Orient Express</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-18">12:30</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-18">15:30</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-18">18:30</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAKMU&amp;m=173859&amp;d=2017-12-18">21:30</a></li></ul></section></div></section> -->
 </main>
 
+<script src="/assets/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script>
 
@@ -216,11 +212,12 @@
         $showtimes:        document.getElementById('showtimes'),
         $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
         $getShowtimesForm: document.getElementById('get-showtimes-form'),
+        $dateOptions:      document.getElementById('date-options'),
       },
 
       init: function() {
         Marquee.loadCookies();
-        // Marquee.setupDates();
+        Marquee.setupDates();
         Marquee.updateGroupings();
 
         Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
@@ -248,11 +245,16 @@
         Cookies.set('password', document.querySelector('[name="password"]').value);
       },
 
-      // setupDates: function() {
-      //   var date = new Date;
-      //   date = date.toJSON().substring(0, 10);
-      //   document.querySelector('[name="startDate"]').setAttribute('value', date);
-      // },
+      setupDates: function() {
+        var dates = [];
+        for (var i = 0; i < 7; i++) {
+          var date = moment().add(i, 'days');
+          dates.push('<label class="block-radio-button"><input value="'+date.format('YYYY-MM-DD')+'" name="startDate" type="radio"'+(i === 0 ? ' checked' : '')+'> <span class="label">'+date.format('ddd')+'<br>'+date.format('MMM D')+'</span></label>');
+        }
+        dates = dates.join('');
+        Marquee.els.$dateOptions.innerHTML = dates;
+        Marquee.els.$dateButtons = document.querySelectorAll('[name="startDate"]');
+      },
 
       changeDate: function() {
         if (Marquee.submittable()) {
@@ -398,6 +400,7 @@
           movieId:   movie.rootId,
           theaterId: showtime.theatre.id,
           dateTime:  showtime.dateTime,
+          moment:    moment(showtime.dateTime),
           ticket:    showtime.ticketURI,
           threed:    Marquee.is3D(movie),
           imax:      Marquee.isIMAX(movie),
