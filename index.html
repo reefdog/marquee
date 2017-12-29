@@ -410,7 +410,7 @@
         } else {
           Marquee.els.$body.classList.add('loading');
           var request = new XMLHttpRequest();
-          request.open('GET', Marquee.apiUrl + Marquee._urlParams(Marquee.serializeForm()), true);
+          request.open('GET', Marquee.apiUrl + Marquee.urlParams(Marquee.serializeForm()), true);
           request.onload = function() {
             Marquee.els.$body.classList.remove('loading');
             if (this.status >= 200 && this.status < 400) {
@@ -587,7 +587,7 @@
         }
       },
 
-      _urlParams: function(data) {
+      urlParams: function(data) {
         return Object.keys(data).map(function(key) {
           return [key, data[key]].map(encodeURIComponent).join("=");
         }).join("&");
