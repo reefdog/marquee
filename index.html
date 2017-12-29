@@ -426,16 +426,32 @@
         Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
           label:    movie.title,
           year:     movie.releaseYear,
-          rating:   movie.ratings ? movie.ratings[0].code : 'n/a',
+          rating:   movie.ratings ? movie.ratings[0].code : null,
+          site:     movie.officialUrl,
           language: movie.titleLang,
           runtime:  movie.runTime,
         };
+        Marquee.createMovieMetadata(movie.rootId);
+      },
+      createMovieMetadata: function(id) {
+        var movie    = Marquee.dataForMovie[id];
+        var metadata = [];
+        if (parseInt(movie.year) != parseInt(moment().format('YYYY'))) { metadata.push(movie.year); }
+        if (movie.rating) { metadata.push('Rated '+movie.rating); }
+        if (movie.site) { metadata.push('<a href="'+movie.site+'">Site</a>'); }
+        Marquee.dataForMovie[id].metadata = metadata;
       },
 
       createTheater: function(theater) {
         Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
-          label: theater.name, 
+          label: theater.name,
         };
+        Marquee.createTheaterMetadata(theater.id);
+      },
+      createTheaterMetadata: function(id) {
+        var theater  = Marquee.dataForTheater[id];
+        var metadata = [];
+        Marquee.dataForTheater[id].metadata = metadata;
       },
 
       addToShowtimeBlock: function(movie, showtime) {
