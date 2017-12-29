@@ -248,6 +248,7 @@
       apiShowtimeData:  [],
 
       els: {
+        $body:             document.body,
         $showtimes:        document.getElementById('showtimes'),
         $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
         $getShowtimesForm: document.getElementById('get-showtimes-form'),
@@ -348,9 +349,11 @@
         if (Marquee.cached()) {
           Marquee.renderFromCache();
         } else {
+          Marquee.els.$body.classList.add('loading');
           var request = new XMLHttpRequest();
           request.open('GET', Marquee.apiUrl + Marquee._urlParams(Marquee.serializeForm()), true);
           request.onload = function() {
+            Marquee.els.$body.classList.remove('loading');
             if (this.status >= 200 && this.status < 400) {
               Marquee.saveCookies();
               Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = JSON.parse(this.response);
@@ -419,6 +422,7 @@
             Marquee.addToShowtimeBlock(movie, showtime);
           });
         });
+        Marquee.createShowtimeHTML();
         Marquee.groupShowtimes();
       },
 
@@ -456,7 +460,7 @@
 
       addToShowtimeBlock: function(movie, showtime) {
         var uid = movie.rootId + '-' + showtime.theatre.id;
-        Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: [], html: ''};
+        Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
 
         var showtimeData = {
           movieId:   movie.rootId,
@@ -467,9 +471,8 @@
           threed:    Marquee.is3D(movie),
           imax:      Marquee.isIMAX(movie),
         };
-        Marquee.showtimeBlocks[uid].showtimes.push(showtimeData);
-        // TODO: Sort this showtime block by movie time (necessitating moving HTML generation out to a separate process).
-        Marquee.showtimeBlocks[uid].html += '<li data-threed="'+showtimeData.threed+'" data-imax="'+showtimeData.imax+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
+        Marquee.showtimeBlocks[uid].showtimes[showtimeData.moment.unix()] = showtimeData;
+        Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.moment.unix());
       },
 
       seedGroupings: function(movieId, theaterId) {
@@ -477,6 +480,18 @@
         Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
         Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
         Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
+      },
+
+      createShowtimeHTML: function() {
+        Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
+          var html = '';
+          block.showtimesKeys.sort();
+          block.showtimesKeys.forEach(function(key) {
+            var showtimeData = block.showtimes[key];
+            html += '<li data-threed="'+showtimeData.threed+'" data-imax="'+showtimeData.imax+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
+          });
+          block.html = html;
+        });
       },
 
       groupShowtimes: function() {
