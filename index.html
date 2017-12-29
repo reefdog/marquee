@@ -294,6 +294,7 @@
 <section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:45am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">3:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">6:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">10:00pm</a></li></ul></section></div></div></section> -->
 </main>
 
+<script src="/assets/sjcl.min.js"></script>
 <script src="/assets/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script>
@@ -305,6 +306,7 @@
       apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
       apiShowtimeCache: {},
       apiShowtimeData:  [],
+      apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
 
       els: {
         $body:             document.body,
@@ -388,7 +390,7 @@
 
       serializeForm: function() {
         return {
-          api_key:   document.querySelector('[name="password"]').value,
+          api_key:   sjcl.decrypt(document.querySelector('[name="password"]').value, Marquee.apiKeyEncrypted),
           zip:       document.querySelector('[name="zip"]').value,
           radius:    document.querySelector('[name="radius"]').value,
           startDate: document.querySelector('[name="startDate"]:checked').value,
