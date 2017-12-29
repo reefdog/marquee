@@ -16,8 +16,8 @@
 
     body {
       font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 1.4rem;
-      line-height: 2.2rem;
+      font-size: 1.6rem;
+      line-height: 150%;
       color: black;
       background: white;
       padding: 1rem;
@@ -43,7 +43,7 @@
     }
 
     #get-showtimes-form {
-      line-height: 1.4rem;
+      line-height: 100%;
     }
 
     .input-group {
@@ -51,6 +51,10 @@
     }
     .input-group > label {
       flex-grow: 1;
+    }
+
+    .showtime-block > li {
+      margin-right: 2rem;
     }
 
     @media (max-width: 599px) {
@@ -67,7 +71,6 @@
       .input-group:last-child {
         margin-right: 0;
       }
-
     }
 
     @media (min-width: 600px) {
@@ -103,7 +106,10 @@
       .secondary-sections {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-column-gap: 2rem;
+        grid-column-gap: 4rem;
+      }
+      .showtime-block > li {
+        margin-right: 3rem;
       }
     }
 
@@ -116,13 +122,13 @@
     }
 
     .primary-label {
-      font-size: 2.2rem;
+      font-size: 150%;
       font-weight: 700;
       margin: 0;
     }
 
     .secondary-label {
-      font-size: 1.6rem;
+      font-size: 100%;
       font-weight: 600;
       margin: 0 0 0.5rem 0;
     }
@@ -131,6 +137,8 @@
       margin: 0.5rem 0 1rem 0;
       padding: 0;
       list-style-type: none;
+      font-size: 80%;
+      color: #aaa;
     }
       .primary-metadata li {
         margin: 0;
@@ -142,6 +150,9 @@
       .primary-metadata li:last-child {
         margin-right: 0;
       }
+      .primary-metadata a {
+        color: #333;
+      }
 
     .showtime-block {
       margin: 0;
@@ -149,15 +160,17 @@
       list-style-type: none;
     }
     .showtime-block > li {
-      margin: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
       padding: 0;
       display: inline-block;
-      margin-right: 2rem;
+      
     }
 
     .threed,
     .imax {
-      font-size: 1.2rem;
+      font-size: 75%;
       font-weight: bold;
     }
 
