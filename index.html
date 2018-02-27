@@ -489,12 +489,12 @@
 
       createMovie: function(movie) {
         Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
-          label:    movie.title,
-          year:     movie.releaseYear,
+          label:    movie.title || '[no title]',
+          year:     movie.releaseYear || '[no year]',
           rating:   movie.ratings ? movie.ratings[0].code : null,
-          site:     movie.officialUrl,
-          language: movie.titleLang,
-          runtime:  movie.runTime.replace('PT0', '').replace('PT', ''),
+          site:     movie.officialUrl || null,
+          language: movie.titleLang || null,
+          runtime:  movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
         };
         Marquee.createMovieMetadata(movie.rootId);
       },
@@ -502,7 +502,7 @@
         var movie    = Marquee.dataForMovie[id];
         var metadata = [];
         if (parseInt(movie.year) != parseInt(moment().format('YYYY'))) { metadata.push(movie.year); }
-        metadata.push(movie.runtime.toLowerCase());
+        if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
         if (movie.rating) { metadata.push('Rated '+movie.rating); }
         if (movie.site) { metadata.push('<a href="'+movie.site+'">Site</a>'); }
         Marquee.dataForMovie[id].metadata = metadata;
