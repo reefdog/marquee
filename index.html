@@ -28,6 +28,12 @@
       transition: padding 200ms ease-in-out;
     }
 
+    header > h1 {
+      font-size: 1em;
+      margin: 0 0 1em 0;
+      font-weight: normal;
+    }
+
     main {
       transition: opacity 100ms ease-in-out;
     }
@@ -86,6 +92,9 @@
       header {
         min-width: 200px;
         max-width: 300px;
+      }
+      header > h1 {
+        text-align: center;
       }
       .input-group {
         margin-bottom: 2rem;
@@ -225,10 +234,9 @@
 <body>
 
 <header>
+  <h1><a href="/">&lt;marquee&gt;</a></h1>
   <form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
-    <div class="input-group">
-      <input name="password" type="text" placeholder="Enter the passphrase...">
-    </div>
+    <input name="password" type="hidden" value="casablanca">
     <div class="input-group">
       <input name="zip" type="text" placeholder="ZIP">
       <select name="radius">
@@ -310,6 +318,15 @@
       apiShowtimeCache: {},
       apiShowtimeData:  [],
       apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
+      sortOrders: {
+        byMovie: {
+          byTitle: [],
+          byReleaseDate: [],
+        },
+        byTheater: {
+          byName: [],  
+        },
+      },
 
       els: {
         $body:             document.body,
@@ -335,18 +352,13 @@
 
       loadCookies: function() {
         var zip      = Cookies.get('zip');
-        var password = Cookies.get('password');
         if (zip) {
           document.querySelector('[name="zip"]').setAttribute('value', zip);
-        }
-        if (password) {
-          document.querySelector('[name="password"]').setAttribute('value', password);
         }
       },
 
       saveCookies: function() {
         Cookies.set('zip', document.querySelector('[name="zip"]').value);
-        Cookies.set('password', document.querySelector('[name="password"]').value);
       },
 
       setupDates: function() {
@@ -451,7 +463,6 @@
       renderShowtimes: function() {
         var html = '';
         var showtimes = Marquee['showtimesBy'+Marquee.primaryGroup];
-
         Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
           var primaryEntity = Marquee['dataFor'+Marquee.primaryGroup][primaryId];
           html += '<section class="primary-section">';
@@ -478,7 +489,16 @@
       },
 
       processShowtimes: function() {
+        Marquee.apiShowtimeData.sort(function(a, b) {
+          var aRelease = a.releaseDate || '1900-01-01';
+          var bRelease = b.releaseDate || '1900-01-01';
+          if (aRelease === bRelease) {
+            return a.title > b.title;
+          }
+          return moment(aRelease).valueOf() > moment(bRelease).valueOf();
+        });
         Marquee.apiShowtimeData.forEach(function(movie) {
+          Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
           Marquee.createMovie(movie);
           movie.showtimes.forEach(function(showtime) {
             Marquee.createTheater(showtime.theatre);
@@ -492,12 +512,13 @@
 
       createMovie: function(movie) {
         Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
-          label:    movie.title || '[no title]',
-          year:     movie.releaseYear || '[no year]',
-          rating:   movie.ratings ? movie.ratings[0].code : null,
-          site:     movie.officialUrl || null,
-          language: movie.titleLang || null,
-          runtime:  movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
+          label:       movie.title || '[no title]',
+          year:        movie.releaseYear || '[no year]',
+          releaseDate: movie.releaseDate || '[no date]',
+          rating:      movie.ratings ? movie.ratings[0].code : null,
+          site:        movie.officialUrl || null,
+          language:    movie.titleLang || null,
+          runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
         };
         Marquee.createMovieMetadata(movie.rootId);
       },
@@ -505,6 +526,7 @@
         var movie    = Marquee.dataForMovie[id];
         var metadata = [];
         if (parseInt(movie.year) != parseInt(moment().format('YYYY'))) { metadata.push(movie.year); }
+        if (movie.releaseDate != '[no date]') { metadata.push(movie.releaseDate); }
         if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
         if (movie.rating) { metadata.push('Rated '+movie.rating); }
         if (movie.site) { metadata.push('<a href="'+movie.site+'">Site</a>'); }
