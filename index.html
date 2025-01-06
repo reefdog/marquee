@@ -28,6 +28,12 @@
       transition: padding 200ms ease-in-out;
     }
 
+    header > h1 {
+      font-size: 1em;
+      margin: 0 0 1em 0;
+      font-weight: normal;
+    }
+
     main {
       transition: opacity 100ms ease-in-out;
     }
@@ -86,6 +92,9 @@
       header {
         min-width: 200px;
         max-width: 300px;
+      }
+      header > h1 {
+        text-align: center;
       }
       .input-group {
         margin-bottom: 2rem;
@@ -168,7 +177,6 @@
       margin-left: 0;
       padding: 0;
       display: inline-block;
-      
     }
 
     .threed,
@@ -225,10 +233,9 @@
 <body>
 
 <header>
+  <h1><a href="/">&lt;marquee&gt;</a></h1>
   <form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
-    <div class="input-group">
-      <input name="password" type="text" placeholder="Enter the passphrase...">
-    </div>
+    <input name="password" type="hidden" value="casablanca">
     <div class="input-group">
       <input name="zip" type="text" placeholder="ZIP">
       <select name="radius">
@@ -247,58 +254,10 @@
   </form>
 </header>
 
-<main id="showtimes">
-<!-- <section class="primary-section"><h1 class="primary-label">The Greatest Showman</h1><ul class="primary-metadata"><li>Rated PG</li><li><a href="http://www.foxmovies.com/movies/the-greatest-showman">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:15am</span></li><li data-threed="false" data-imax="false"><span class="past">1:30pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=146853&amp;d=2017-12-29">3:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=146853&amp;d=2017-12-29">6:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=146853&amp;d=2017-12-29">10:00pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">8:45am</span></li><li data-threed="false" data-imax="false"><span class="past">11:30am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=146853&amp;d=2017-12-29">2:10pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=146853&amp;d=2017-12-29">4:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=146853&amp;d=2017-12-29">7:20pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=146853&amp;d=2017-12-29">10:00pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:30am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=146853&amp;d=2017-12-29">2:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=146853&amp;d=2017-12-29">5:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=146853&amp;d=2017-12-29">7:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=146853&amp;d=2017-12-29">10:30pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Star Wars: The Last Jedi</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.starwars.com/films/star-wars-episode-viii-the-last-jedi">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:00am</span></li><li data-threed="false" data-imax="false"><span class="past">1:30pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-29">4:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-29">7:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=149052&amp;d=2017-12-29">9:45pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">9:30am</span></li><li data-threed="false" data-imax="false"><span class="past">1:00pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-29">4:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-29">5:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-29">8:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149052&amp;d=2017-12-29">11:20pm</a></li><li data-threed="false" data-imax="true"><span class="past">8:30am<span class="imax"> IMAX</span></span></li><li data-threed="false" data-imax="true"><span class="past">12:00pm<span class="imax"> IMAX</span></span></li><li data-threed="false" data-imax="true"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-29">3:30pm<span class="imax"> IMAX</span></a></li><li data-threed="false" data-imax="true"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-29">7:00pm<span class="imax"> IMAX</span></a></li><li data-threed="false" data-imax="true"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179048&amp;d=2017-12-29">10:30pm<span class="imax"> IMAX</span></a></li><li data-threed="true" data-imax="false"><span class="past">10:30am<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></span></li><li data-threed="true" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-29">2:00pm<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></a></li><li data-threed="true" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=149063&amp;d=2017-12-29">9:00pm<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:00am</span></li><li data-threed="false" data-imax="false"><span class="past">12:00pm</span></li><li data-threed="false" data-imax="false"><span class="past">1:00pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">2:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">3:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">4:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">6:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">7:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">8:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">9:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=149052&amp;d=2017-12-29">10:30pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Pitch Perfect 3</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.pitchperfectmovie.com/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:30am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=152063&amp;d=2017-12-29">2:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=152063&amp;d=2017-12-29">5:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=152063&amp;d=2017-12-29">7:40pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=152063&amp;d=2017-12-29">10:00pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">9:45am</span></li><li data-threed="false" data-imax="false"><span class="past">12:10pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=152063&amp;d=2017-12-29">2:40pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=152063&amp;d=2017-12-29">5:10pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=152063&amp;d=2017-12-29">7:40pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=152063&amp;d=2017-12-29">10:10pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:45am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=152063&amp;d=2017-12-29">2:25pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=152063&amp;d=2017-12-29">5:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=152063&amp;d=2017-12-29">7:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=152063&amp;d=2017-12-29">10:05pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Thor: Ragnarok</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="https://marvel.com/thor">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=157889&amp;d=2017-12-29">10:55pm</a></li></ul></section></div><div class="secondary-sections-col"></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Justice League</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.justiceleaguethemovie.com/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=158786&amp;d=2017-12-29">10:15pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:15am</span></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Father Figures</h1><ul class="primary-metadata"><li>Rated R</li><li><a href="https://www.warnerbros.com/father-figures">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:40am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=162365&amp;d=2017-12-29">5:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=162365&amp;d=2017-12-29">8:15pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:50am</span></li><li data-threed="false" data-imax="false"><span class="past">1:40pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=162365&amp;d=2017-12-29">4:25pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=162365&amp;d=2017-12-29">7:15pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:00am</span></li><li data-threed="false" data-imax="false"><span class="past">1:45pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=162365&amp;d=2017-12-29">4:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=162365&amp;d=2017-12-29">10:45pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Wonder</h1><ul class="primary-metadata"><li>Rated PG</li><li><a href="http://www.lionsgate.com/movies/wonder/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">8:40am</span></li><li data-threed="false" data-imax="false"><span class="past">11:20am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=167705&amp;d=2017-12-29">2:05pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=167705&amp;d=2017-12-29">4:50pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=167705&amp;d=2017-12-29">7:35pm</a></li></ul></section></div><div class="secondary-sections-col"></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Downsizing</h1><ul class="primary-metadata"><li>Rated R</li><li><a href="http://www.paramount.com/movies/downsizing">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">12:15pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168933&amp;d=2017-12-29">3:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168933&amp;d=2017-12-29">7:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168933&amp;d=2017-12-29">10:40pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:10am</span></li><li data-threed="false" data-imax="false"><span class="past">1:15pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168933&amp;d=2017-12-29">4:20pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168933&amp;d=2017-12-29">7:25pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168933&amp;d=2017-12-29">10:45pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">1:15pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168933&amp;d=2017-12-29">4:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168933&amp;d=2017-12-29">7:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168933&amp;d=2017-12-29">11:00pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Jumanji: Welcome to the Jungle</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.sonypictures.com/movies/jumanjiwelcometothejungle/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:00am</span></li><li data-threed="false" data-imax="false"><span class="past">1:00pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168975&amp;d=2017-12-29">2:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168975&amp;d=2017-12-29">4:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168975&amp;d=2017-12-29">7:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168975&amp;d=2017-12-29">9:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=168975&amp;d=2017-12-29">10:45pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">9:00am</span></li><li data-threed="false" data-imax="false"><span class="past">10:20am</span></li><li data-threed="false" data-imax="false"><span class="past">1:20pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168975&amp;d=2017-12-29">3:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168975&amp;d=2017-12-29">4:20pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168975&amp;d=2017-12-29">7:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=168975&amp;d=2017-12-29">10:20pm</a></li><li data-threed="true" data-imax="false"><span class="past">11:50am<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></span></li><li data-threed="true" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179216&amp;d=2017-12-29">6:00pm<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></a></li><li data-threed="true" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=179216&amp;d=2017-12-29">9:10pm<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span></a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:00am</span></li><li data-threed="false" data-imax="false"><span class="past">10:15am</span></li><li data-threed="false" data-imax="false"><span class="past">12:15pm</span></li><li data-threed="false" data-imax="false"><span class="past">1:15pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">3:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">4:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">6:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">7:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">7:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">9:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=168975&amp;d=2017-12-29">10:45pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Daddy's Home 2</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.paramount.com/movies/daddy-s-home-2">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=170729&amp;d=2017-12-29">10:25pm</a></li></ul></section></div><div class="secondary-sections-col"></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Ferdinand</h1><ul class="primary-metadata"><li>Rated PG</li><li><a href="http://www.foxmovies.com/movies/ferdinand">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Times Square Cinema</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:00am</span></li><li data-threed="false" data-imax="false"><span class="past">12:30pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-29">3:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-29">6:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATGX&amp;m=171503&amp;d=2017-12-29">8:30pm</a></li></ul></section>
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:35am</span></li><li data-threed="false" data-imax="false"><span class="past">1:35pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-29">4:35pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-29">7:35pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=171503&amp;d=2017-12-29">10:35pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:00am</span></li><li data-threed="false" data-imax="false"><span class="past">12:45pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=171503&amp;d=2017-12-29">3:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=171503&amp;d=2017-12-29">6:15pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=171503&amp;d=2017-12-29">9:00pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Coco</h1><ul class="primary-metadata"><li>Rated PG</li><li><a href="http://movies.disney.com/coco">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">9:15am</span></li><li data-threed="false" data-imax="false"><span class="past">11:55am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-29">2:35pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=172115&amp;d=2017-12-29">5:25pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:15am</span></li><li data-threed="false" data-imax="false"><span class="past">1:00pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=172115&amp;d=2017-12-29">3:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=172115&amp;d=2017-12-29">6:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=172115&amp;d=2017-12-29">9:15pm</a></li></ul></section></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Murder on the Orient Express</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="https://www.cluesareeverywhere.com/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=173859&amp;d=2017-12-29">8:05pm</a></li></ul></section></div><div class="secondary-sections-col"></div></div></section>
-<section class="primary-section"><h1 class="primary-label">Darkest Hour</h1><ul class="primary-metadata"><li>Rated PG-13</li><li><a href="http://www.focusfeatures.com/darkesthour/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">9:20am</span></li><li data-threed="false" data-imax="false"><span class="past">12:25pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174071&amp;d=2017-12-29">3:35pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174071&amp;d=2017-12-29">6:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=174071&amp;d=2017-12-29">9:55pm</a></li></ul></section></div><div class="secondary-sections-col"></div></div></section>
-<section class="primary-section"><h1 class="primary-label">All the Money in the World</h1><ul class="primary-metadata"><li>Rated R</li><li><a href="https://www.allthemoney-movie.com/">Site</a></li></ul><div class="secondary-sections"><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">AMC Tyler 14</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">10:00am</span></li><li data-threed="false" data-imax="false"><span class="past">1:10pm</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=176086&amp;d=2017-12-29">4:40pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=176086&amp;d=2017-12-29">7:45pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AATLA&amp;m=176086&amp;d=2017-12-29">11:00pm</a></li></ul></section></div><div class="secondary-sections-col">
-<section class="secondary-section"><h2 class="secondary-label">Studio Movie Grill Tyler</h2><ul class="showtime-block"><li data-threed="false" data-imax="false"><span class="past">11:45am</span></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">3:00pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">6:30pm</a></li><li data-threed="false" data-imax="false"><a href="http://www.fandango.com/tms.asp?t=AAXNV&amp;m=176086&amp;d=2017-12-29">10:00pm</a></li></ul></section></div></div></section> -->
-</main>
+<main id="showtimes"></main>
 
 <script src="/assets/sjcl.min.js"></script>
-<script src="/assets/moment.min.js"></script>
+<script src="/assets/dayjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script>
 
@@ -310,6 +269,15 @@
       apiShowtimeCache: {},
       apiShowtimeData:  [],
       apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
+      sortOrders: {
+        byMovie: {
+          byTitle: [],
+          byReleaseDate: [],
+        },
+        byTheater: {
+          byName: [],
+        },
+      },
 
       els: {
         $body:             document.body,
@@ -334,26 +302,33 @@
       },
 
       loadCookies: function() {
-        var zip      = Cookies.get('zip');
-        var password = Cookies.get('password');
+        var zip = Cookies.get('zip');
         if (zip) {
           document.querySelector('[name="zip"]').setAttribute('value', zip);
-        }
-        if (password) {
-          document.querySelector('[name="password"]').setAttribute('value', password);
         }
       },
 
       saveCookies: function() {
         Cookies.set('zip', document.querySelector('[name="zip"]').value);
-        Cookies.set('password', document.querySelector('[name="password"]').value);
       },
 
       setupDates: function() {
         var dates = [];
         for (var i = 0; i < 7; i++) {
-          var date = moment().add(i, 'days');
-          dates.push('<label class="block-radio-button"><input value="'+date.format('YYYY-MM-DD')+'" name="startDate" type="radio"'+(i === 0 ? ' checked' : '')+'> <span class="label">'+date.format('ddd')+'<br>'+date.format('MMM D')+'</span></label>');
+          var date = dayjs().add(i, 'day');
+          dates.push(`
+            <label class="block-radio-button">
+              <input 
+                value="${date.format('YYYY-MM-DD')}" 
+                name="startDate" 
+                type="radio"
+                ${i === 0 ? ' checked' : ''}
+              >
+              <span class="label">
+                ${date.format('ddd')}<br>${date.format('MMM D')}
+              </span>
+            </label>
+          `);
         }
         dates = dates.join('');
         Marquee.els.$dateOptions.innerHTML = dates;
@@ -450,35 +425,49 @@
 
       renderShowtimes: function() {
         var html = '';
-        var showtimes = Marquee['showtimesBy'+Marquee.primaryGroup];
-
+        var showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
         Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
-          var primaryEntity = Marquee['dataFor'+Marquee.primaryGroup][primaryId];
-          html += '<section class="primary-section">';
-          html += '<h1 class="primary-label">'+primaryEntity.label+'</h1>';
-          html += '<ul class="primary-metadata"><li>'+primaryEntity.metadata.join('</li><li>')+'</li></ul>';
-          html += '<div class="secondary-sections">';
+          var primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
+          html += `
+            <section class="primary-section">
+              <h1 class="primary-label">${primaryEntity.label}</h1>
+              <ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
+              <div class="secondary-sections">
+          `;
           var leftCol = '', rightCol = '', i = 1, tipper = Math.ceil(Object.keys(secondaryObject).length/2);
           Marquee.eachObject(secondaryObject, function(block, secondaryId) {
-            var secondaryEntity = Marquee['dataFor'+Marquee.secondaryGroup][secondaryId];
-            var section = '<section class="secondary-section">';
-                section += '<h2 class="secondary-label">'+secondaryEntity.label+'</h2>';
-                section += '<ul class="showtime-block">'+block.html+'</ul>';
-                section += '</section>';
+            var secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
+            var section = `
+              <section class="secondary-section">
+                <h2 class="secondary-label">${secondaryEntity.label}</h2>
+                <ul class="showtime-block">${block.html}</ul>
+              </section>
+            `;
             if (i <= tipper) { leftCol  += section; }
             else             { rightCol += section; }
             i++;
           });
-          html += '<div class="secondary-sections-col">'+leftCol+'</div>';
-          html += '<div class="secondary-sections-col">'+rightCol+'</div>';
-          html += '</div>';
-          html += '</section>';
+          html += `
+              <div class="secondary-sections-col">${leftCol}</div>
+              <div class="secondary-sections-col">${rightCol}</div>
+            </div>
+          </section>
+          `;
         });
         Marquee.els.$showtimes.innerHTML = html;
       },
 
       processShowtimes: function() {
+        Marquee.apiShowtimeData.sort(function(a, b) {
+          var aRelease = a.releaseDate || '1900-01-01';
+          var bRelease = b.releaseDate || '1900-01-01';
+          if (aRelease === bRelease) {
+            return a.title > b.title;
+          }
+          return dayjs(aRelease).valueOf() > dayjs(bRelease).valueOf();
+        });
         Marquee.apiShowtimeData.forEach(function(movie) {
+          Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
           Marquee.createMovie(movie);
           movie.showtimes.forEach(function(showtime) {
             Marquee.createTheater(showtime.theatre);
@@ -492,22 +481,24 @@
 
       createMovie: function(movie) {
         Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
-          label:    movie.title || '[no title]',
-          year:     movie.releaseYear || '[no year]',
-          rating:   movie.ratings ? movie.ratings[0].code : null,
-          site:     movie.officialUrl || null,
-          language: movie.titleLang || null,
-          runtime:  movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
+          label:       movie.title || '[no title]',
+          year:        movie.releaseYear || '[no year]',
+          releaseDate: movie.releaseDate || '[no date]',
+          rating:      movie.ratings ? movie.ratings[0].code : null,
+          site:        movie.officialUrl || null,
+          language:    movie.titleLang || null,
+          runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
         };
         Marquee.createMovieMetadata(movie.rootId);
       },
       createMovieMetadata: function(id) {
         var movie    = Marquee.dataForMovie[id];
         var metadata = [];
-        if (parseInt(movie.year) != parseInt(moment().format('YYYY'))) { metadata.push(movie.year); }
+        if (parseInt(movie.year) != parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
+        if (movie.releaseDate != '[no date]') { metadata.push(movie.releaseDate); }
         if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
-        if (movie.rating) { metadata.push('Rated '+movie.rating); }
-        if (movie.site) { metadata.push('<a href="'+movie.site+'">Site</a>'); }
+        if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
+        if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
         Marquee.dataForMovie[id].metadata = metadata;
       },
 
@@ -528,16 +519,16 @@
         Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
 
         var showtimeData = {
-          movieId:   movie.rootId,
-          theaterId: showtime.theatre.id,
-          dateTime:  showtime.dateTime,
-          moment:    moment(showtime.dateTime),
-          ticket:    showtime.ticketURI,
-          threed:    Marquee.is3D(movie),
-          imax:      Marquee.isIMAX(movie),
+          movieId:       movie.rootId,
+          theaterId:     showtime.theatre.id,
+          dateTime:      showtime.dateTime,
+          dateTimeDayJS: dayjs(showtime.dateTime),
+          ticket:        showtime.ticketURI,
+          threed:        Marquee.is3D(movie),
+          imax:          Marquee.isIMAX(movie),
         };
-        Marquee.showtimeBlocks[uid].showtimes[showtimeData.moment.unix()] = showtimeData;
-        Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.moment.unix());
+        Marquee.showtimeBlocks[uid].showtimes[showtimeData.dateTimeDayJS.unix()] = showtimeData;
+        Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.dateTimeDayJS.unix());
       },
 
       seedGroupings: function(movieId, theaterId) {
@@ -553,7 +544,11 @@
           block.showtimesKeys.sort();
           block.showtimesKeys.forEach(function(key) {
             var showtimeData = block.showtimes[key];
-            html += '<li data-threed="'+showtimeData.threed+'" data-imax="'+showtimeData.imax+'">'+Marquee.createShowtimeLink(showtimeData)+'</li>';
+            html += `
+              <li data-threed="${showtimeData.threed}" data-imax="${showtimeData.imax}">
+                ${Marquee.createShowtimeLink(showtimeData)}
+              </li>
+            `;
           });
           block.html = html;
         });
@@ -586,10 +581,16 @@
       },
 
       createShowtimeLink: function(showtime) {
-        if (showtime.moment.isBefore(moment())) {
-          return '<span class="past">'+showtime.moment.format('h:mma')+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</span>';
+        if (showtime.dateTimeDayJS.isBefore(dayjs())) {
+          return `
+            <span class="past">
+              ${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+            </span>`;
         } else {
-          return '<a href="'+showtime.ticket+'">'+showtime.moment.format('h:mma')+Marquee.createThreeD(showtime)+Marquee.createIMAX(showtime)+'</a>';
+          return `
+            <a href="${showtime.ticket}">
+              ${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+            </a>`;
         }
       },
 
@@ -613,6 +614,6 @@
 
 })();
 
-</script>  
+</script>
 </body>
 </html>
