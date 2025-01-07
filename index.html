@@ -1,257 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-title" content="Marquee">
-  <!-- <link rel="apple-touch-startup-image" href="/launch.png"> -->
-  <!-- <link rel="apple-touch-icon" href="touch-icon-iphone.png"> -->
-  <title>marquee: movie showtimes that are good</title>
-  <link rel="stylesheet" href="/assets/normalize.css" type="text/css" media="screen">
-  <style type="text/css">
-    *,*:before,*:after {
-      box-sizing: border-box;
-    }
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-title" content="Marquee">
+	<!-- <link rel="apple-touch-startup-image" href="/launch.png"> -->
+	<!-- <link rel="apple-touch-icon" href="touch-icon-iphone.png"> -->
+	<title>marquee: movie showtimes that are good</title>
+	<link rel="stylesheet" href="/assets/normalize.css" type="text/css" media="screen">
+	<style type="text/css">
+		*,*:before,*:after {
+			box-sizing: border-box;
+		}
 
-    html {
-      font-size: 10px;
-    }
+		html {
+			font-size: 10px;
+		}
 
-    body {
-      font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      font-size: 1.6rem;
-      line-height: 150%;
-      color: black;
-      background: white;
-      padding: 1rem;
-      max-width: 1600px;
-      transition: padding 200ms ease-in-out;
-    }
+		body {
+			font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			font-size: 1.6rem;
+			line-height: 150%;
+			color: black;
+			background: white;
+			padding: 1rem;
+			max-width: 1600px;
+			transition: padding 200ms ease-in-out;
+		}
 
-    header > h1 {
-      font-size: 1em;
-      margin: 0 0 1em 0;
-      font-weight: normal;
-    }
+		header > h1 {
+			font-size: 1em;
+			margin: 0 0 1em 0;
+			font-weight: normal;
+		}
 
-    main {
-      transition: opacity 100ms ease-in-out;
-    }
-    .loading main {
-      opacity: 0.15;
-    }
+		main {
+			transition: opacity 100ms ease-in-out;
+		}
+		.loading main {
+			opacity: 0.15;
+		}
 
-    a,
-    a:link,
-    a:visited {
-      text-decoration: none;
-      color: inherit;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+		a,
+		a:link,
+		a:visited {
+			text-decoration: none;
+			color: inherit;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
 
-    #get-showtimes-form {
-      line-height: 100%;
-    }
+		#get-showtimes-form {
+			line-height: 100%;
+		}
 
-    .input-group {
-      display: flex;
-    }
-    .input-group > label {
-      flex-grow: 1;
-    }
+		.input-group {
+			display: flex;
+		}
+		.input-group > label {
+			flex-grow: 1;
+		}
 
-    .showtime-block > li {
-      margin-right: 2rem;
-    }
+		.showtime-block > li {
+			margin-right: 2rem;
+		}
 
-    @media (max-width: 599px) {
-      #get-showtimes-form {
-        display: flex;
-        flex-wrap: wrap;
-        min-height: 5rem;
-      }
+		@media (max-width: 599px) {
+			#get-showtimes-form {
+				display: flex;
+				flex-wrap: wrap;
+				min-height: 5rem;
+			}
 
-      .input-group {
-        margin-right: 2rem;
-      }
+			.input-group {
+				margin-right: 2rem;
+			}
 
-      .input-group:last-child {
-        margin-right: 0;
-      }
-    }
+			.input-group:last-child {
+				margin-right: 0;
+			}
+		}
 
-    @media (min-width: 600px) {
-      body {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-column-gap: 2rem;
-        padding: 2rem;
-      }
-      header {
-        min-width: 200px;
-        max-width: 300px;
-      }
-      header > h1 {
-        text-align: center;
-      }
-      .input-group {
-        margin-bottom: 2rem;
-      }
-      #date-options > label {
-        display: none;
-      }
-      #date-options.show-all > label,
-      #date-options > label:nth-child(1),
-      #date-options > label:nth-child(2),
-      #date-options > label:nth-child(3) {
-        display: block;
-      }
-    }
+		@media (min-width: 600px) {
+			body {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				grid-column-gap: 2rem;
+				padding: 2rem;
+			}
+			header {
+				min-width: 200px;
+				max-width: 300px;
+			}
+			header > h1 {
+				text-align: center;
+			}
+			.input-group {
+				margin-bottom: 2rem;
+			}
+			#date-options > label {
+				display: none;
+			}
+			#date-options.show-all > label,
+			#date-options > label:nth-child(1),
+			#date-options > label:nth-child(2),
+			#date-options > label:nth-child(3) {
+				display: block;
+			}
+		}
 
-    @media (min-width: 900px) {
-      body {
-        grid-column-gap: 4rem;
-        padding: 4rem;
-      }
-      .secondary-sections {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 4rem;
-      }
-      .showtime-block > li {
-        margin-right: 3rem;
-      }
-    }
+		@media (min-width: 900px) {
+			body {
+				grid-column-gap: 4rem;
+				padding: 4rem;
+			}
+			.secondary-sections {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-column-gap: 4rem;
+			}
+			.showtime-block > li {
+				margin-right: 3rem;
+			}
+		}
 
-    .primary-section {
-      margin: 7rem 0;
-    }
+		.primary-section {
+			margin: 7rem 0;
+		}
 
-    .secondary-section {
-      margin: 0 0 2rem 0;
-    }
+		.secondary-section {
+			margin: 0 0 2rem 0;
+		}
 
-    .primary-label {
-      font-size: 150%;
-      font-weight: 700;
-      margin: 0;
-    }
+		.primary-label {
+			font-size: 150%;
+			font-weight: 700;
+			margin: 0;
+		}
 
-    .secondary-label {
-      font-size: 100%;
-      font-weight: 600;
-      margin: 0 0 0.5rem 0;
-    }
+		.secondary-label {
+			font-size: 100%;
+			font-weight: 600;
+			margin: 0 0 0.5rem 0;
+		}
 
-    .primary-metadata {
-      margin: 0.5rem 0 1rem 0;
-      padding: 0;
-      list-style-type: none;
-      font-size: 80%;
-      color: #aaa;
-    }
-      .primary-metadata li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        display: inline-block;
-        margin-right: 2rem;
-      }
-      .primary-metadata li:last-child {
-        margin-right: 0;
-      }
-      .primary-metadata a {
-        color: #333;
-      }
+		.primary-metadata {
+			margin: 0.5rem 0 1rem 0;
+			padding: 0;
+			list-style-type: none;
+			font-size: 80%;
+			color: #aaa;
+		}
+			.primary-metadata li {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				display: inline-block;
+				margin-right: 2rem;
+			}
+			.primary-metadata li:last-child {
+				margin-right: 0;
+			}
+			.primary-metadata a {
+				color: #333;
+			}
 
-    .showtime-block {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-    .showtime-block > li {
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-left: 0;
-      padding: 0;
-      display: inline-block;
-    }
+		.showtime-block {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		.showtime-block > li {
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 0;
+			padding: 0;
+			display: inline-block;
+		}
 
-    .threed,
-    .imax {
-      font-size: 75%;
-      font-weight: bold;
-    }
+		.threed,
+		.imax {
+			font-size: 75%;
+			font-weight: bold;
+		}
 
-    a .threed-blue {
-      color: blue;
-    }
-    a .threed-red {
-      color: red;;
-    }
+		a .threed-blue {
+			color: blue;
+		}
+		a .threed-red {
+			color: red;;
+		}
 
-    .past {
-      color: #aaa;
-    }
+		.past {
+			color: #aaa;
+		}
 
-    .block-radio-button {
-      cursor: pointer;
-    }
-    .block-radio-button > input[type=radio] {
-      display: none;
-    }
-    .block-radio-button > .label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      border: 0.1rem solid #BDBDBD;
-      text-align: center;
-      white-space: nowrap;
-      padding: 0.5rem 1.1rem;
-      margin-left: -0.1rem;
-      color: #333;
-    }
-    .block-radio-button > .label:hover {
-      border-width: 0.4rem;
-      padding-left: 0.8rem;
-      padding-right: 0.8rem;
-    }
-    .block-radio-button > input[type=radio]:checked + .label {
-      z-index: 1;
-      border: 0.4rem solid #2F80ED;
-      padding-left: 0.8rem;
-      padding-right: 0.8rem;
-      color: #000;
-      font-weight: bold;
-    }
+		.block-radio-button {
+			cursor: pointer;
+		}
+		.block-radio-button > input[type=radio] {
+			display: none;
+		}
+		.block-radio-button > .label {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			border: 0.1rem solid #BDBDBD;
+			text-align: center;
+			white-space: nowrap;
+			padding: 0.5rem 1.1rem;
+			margin-left: -0.1rem;
+			color: #333;
+		}
+		.block-radio-button > .label:hover {
+			border-width: 0.4rem;
+			padding-left: 0.8rem;
+			padding-right: 0.8rem;
+		}
+		.block-radio-button > input[type=radio]:checked + .label {
+			z-index: 1;
+			border: 0.4rem solid #2F80ED;
+			padding-left: 0.8rem;
+			padding-right: 0.8rem;
+			color: #000;
+			font-weight: bold;
+		}
 
-  </style>
+	</style>
 </head>
 <body>
 
 <header>
-  <h1><a href="/">&lt;marquee&gt;</a></h1>
-  <form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
-    <input name="password" type="hidden" value="casablanca">
-    <div class="input-group">
-      <input name="zip" type="text" placeholder="ZIP">
-      <select name="radius">
-        <option>5</option>
-        <option selected>10</option>
-        <option>50</option>
-        <option>100</option>
-      </select>
-      <button type="submit">Find</button>
-    </div>
-    <div id="date-options" class="input-group"></div>
-    <div class="input-group">
-      <label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <span class="label">Movie</span></label>
-      <label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <span class="label">Theater</span></label>
-    </div>
-  </form>
+	<h1><a href="/">&lt;marquee&gt;</a></h1>
+	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
+		<input name="password" type="hidden" value="casablanca">
+		<div class="input-group">
+			<input name="zip" type="text" placeholder="ZIP">
+			<select name="radius">
+				<option>5</option>
+				<option selected>10</option>
+				<option>50</option>
+				<option>100</option>
+			</select>
+			<button type="submit">Find</button>
+		</div>
+		<div id="date-options" class="input-group"></div>
+		<div class="input-group">
+			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <span class="label">Movie</span></label>
+			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <span class="label">Theater</span></label>
+		</div>
+	</form>
 </header>
 
 <main id="showtimes"></main>
@@ -263,353 +263,353 @@
 
 (function(){
 
-    var Marquee = window.Marquee = window.Marquee || {
+		var Marquee = window.Marquee = window.Marquee || {
 
-      apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
-      apiShowtimeCache: {},
-      apiShowtimeData:  [],
-      apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
-      sortOrders: {
-        byMovie: {
-          byTitle: [],
-          byReleaseDate: [],
-        },
-        byTheater: {
-          byName: [],
-        },
-      },
+			apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
+			apiShowtimeCache: {},
+			apiShowtimeData:  [],
+			apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
+			sortOrders: {
+				byMovie: {
+					byTitle: [],
+					byReleaseDate: [],
+				},
+				byTheater: {
+					byName: [],
+				},
+			},
 
-      els: {
-        $body:             document.body,
-        $showtimes:        document.getElementById('showtimes'),
-        $groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-        $getShowtimesForm: document.getElementById('get-showtimes-form'),
-        $dateOptions:      document.getElementById('date-options'),
-      },
+			els: {
+				$body:             document.body,
+				$showtimes:        document.getElementById('showtimes'),
+				$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
+				$getShowtimesForm: document.getElementById('get-showtimes-form'),
+				$dateOptions:      document.getElementById('date-options'),
+			},
 
-      init: function() {
-        Marquee.loadCookies();
-        Marquee.setupDates();
-        Marquee.updateGroupings();
+			init: function() {
+				Marquee.loadCookies();
+				Marquee.setupDates();
+				Marquee.updateGroupings();
 
-        Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
-        Marquee.els.$dateButtons.forEach(function(button){
-          button.addEventListener('change', Marquee.changeDate);
-        });
-        Marquee.els.$groupButtons.forEach(function(button){
-          button.addEventListener('change', Marquee.changeGrouping);
-        });
-      },
+				Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
+				Marquee.els.$dateButtons.forEach(function(button){
+					button.addEventListener('change', Marquee.changeDate);
+				});
+				Marquee.els.$groupButtons.forEach(function(button){
+					button.addEventListener('change', Marquee.changeGrouping);
+				});
+			},
 
-      loadCookies: function() {
-        var zip = Cookies.get('zip');
-        if (zip) {
-          document.querySelector('[name="zip"]').setAttribute('value', zip);
-        }
-      },
+			loadCookies: function() {
+				var zip = Cookies.get('zip');
+				if (zip) {
+					document.querySelector('[name="zip"]').setAttribute('value', zip);
+				}
+			},
 
-      saveCookies: function() {
-        Cookies.set('zip', document.querySelector('[name="zip"]').value);
-      },
+			saveCookies: function() {
+				Cookies.set('zip', document.querySelector('[name="zip"]').value);
+			},
 
-      setupDates: function() {
-        var dates = [];
-        for (var i = 0; i < 7; i++) {
-          var date = dayjs().add(i, 'day');
-          dates.push(`
-            <label class="block-radio-button">
-              <input 
-                value="${date.format('YYYY-MM-DD')}" 
-                name="startDate" 
-                type="radio"
-                ${i === 0 ? ' checked' : ''}
-              >
-              <span class="label">
-                ${date.format('ddd')}<br>${date.format('MMM D')}
-              </span>
-            </label>
-          `);
-        }
-        dates = dates.join('');
-        Marquee.els.$dateOptions.innerHTML = dates;
-        Marquee.els.$dateButtons = document.querySelectorAll('[name="startDate"]');
-      },
+			setupDates: function() {
+				var dates = [];
+				for (var i = 0; i < 7; i++) {
+					var date = dayjs().add(i, 'day');
+					dates.push(`
+						<label class="block-radio-button">
+							<input 
+								value="${date.format('YYYY-MM-DD')}" 
+								name="startDate" 
+								type="radio"
+								${i === 0 ? ' checked' : ''}
+							>
+							<span class="label">
+								${date.format('ddd')}<br>${date.format('MMM D')}
+							</span>
+						</label>
+					`);
+				}
+				dates = dates.join('');
+				Marquee.els.$dateOptions.innerHTML = dates;
+				Marquee.els.$dateButtons = document.querySelectorAll('[name="startDate"]');
+			},
 
-      changeDate: function() {
-        if (Marquee.submittable()) {
-          Marquee.clearData();
-          Marquee.fetchMovieTimes();
-        }
-      },
+			changeDate: function() {
+				if (Marquee.submittable()) {
+					Marquee.clearData();
+					Marquee.fetchMovieTimes();
+				}
+			},
 
-      submittable: function() {
-        return (document.querySelector('[name="zip"]').value !== '');
-      },
+			submittable: function() {
+				return (document.querySelector('[name="zip"]').value !== '');
+			},
 
-      changeGrouping: function() {
-        Marquee.updateGroupings();
-        if (this.checked) {
-          Marquee.renderShowtimes();
-        }
-      },
+			changeGrouping: function() {
+				Marquee.updateGroupings();
+				if (this.checked) {
+					Marquee.renderShowtimes();
+				}
+			},
 
-      updateGroupings: function() {
-        Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
-        Marquee.secondaryGroup = Marquee.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
-      },
+			updateGroupings: function() {
+				Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
+				Marquee.secondaryGroup = Marquee.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
+			},
 
-      submitShowtimesForm: function(event) {
-        event.preventDefault();
-        if (Marquee.submittable()) {
-          Marquee.clearData();
-          Marquee.fetchMovieTimes();
-        }
-      },
+			submitShowtimesForm: function(event) {
+				event.preventDefault();
+				if (Marquee.submittable()) {
+					Marquee.clearData();
+					Marquee.fetchMovieTimes();
+				}
+			},
 
-      serializeForm: function() {
-        return {
-          api_key:   sjcl.decrypt(document.querySelector('[name="password"]').value, Marquee.apiKeyEncrypted),
-          zip:       document.querySelector('[name="zip"]').value,
-          radius:    document.querySelector('[name="radius"]').value,
-          startDate: document.querySelector('[name="startDate"]:checked').value,
-        };
-      },
+			serializeForm: function() {
+				return {
+					api_key:   sjcl.decrypt(document.querySelector('[name="password"]').value, Marquee.apiKeyEncrypted),
+					zip:       document.querySelector('[name="zip"]').value,
+					radius:    document.querySelector('[name="radius"]').value,
+					startDate: document.querySelector('[name="startDate"]:checked').value,
+				};
+			},
 
-      clearData: function() {
-        Marquee.apiShowtimeData    = [];
-        Marquee.dataForMovie       = {};
-        Marquee.dataForTheater     = {};
-        Marquee.showtimesByMovie   = {};
-        Marquee.showtimesByTheater = {};
-        Marquee.showtimeBlocks     = {};
-      },
+			clearData: function() {
+				Marquee.apiShowtimeData    = [];
+				Marquee.dataForMovie       = {};
+				Marquee.dataForTheater     = {};
+				Marquee.showtimesByMovie   = {};
+				Marquee.showtimesByTheater = {};
+				Marquee.showtimeBlocks     = {};
+			},
 
-      fetchMovieTimes: function() {
-        if (Marquee.cached()) {
-          Marquee.renderFromCache();
-        } else {
-          Marquee.els.$body.classList.add('loading');
-          var request = new XMLHttpRequest();
-          request.open('GET', Marquee.apiUrl + Marquee.urlParams(Marquee.serializeForm()), true);
-          request.onload = function() {
-            Marquee.els.$body.classList.remove('loading');
-            if (this.status >= 200 && this.status < 400) {
-              Marquee.saveCookies();
-              Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = JSON.parse(this.response);
-              Marquee.renderFromCache();
-            } else {
-              alert('Server error');
-            }
-          };
-          request.onerror = function() {
-            alert('Connection error');
-          };
-          request.send();
-        }
-      },
+			fetchMovieTimes: function() {
+				if (Marquee.cached()) {
+					Marquee.renderFromCache();
+				} else {
+					Marquee.els.$body.classList.add('loading');
+					var request = new XMLHttpRequest();
+					request.open('GET', Marquee.apiUrl + Marquee.urlParams(Marquee.serializeForm()), true);
+					request.onload = function() {
+						Marquee.els.$body.classList.remove('loading');
+						if (this.status >= 200 && this.status < 400) {
+							Marquee.saveCookies();
+							Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = JSON.parse(this.response);
+							Marquee.renderFromCache();
+						} else {
+							alert('Server error');
+						}
+					};
+					request.onerror = function() {
+						alert('Connection error');
+					};
+					request.send();
+				}
+			},
 
-      makeCacheKey: function() {
-        var data = Marquee.serializeForm();
-        return data.zip + '--' + data.radius + '--' + data.startDate;
-      },
+			makeCacheKey: function() {
+				var data = Marquee.serializeForm();
+				return data.zip + '--' + data.radius + '--' + data.startDate;
+			},
 
-      cached: function() {
-        return Marquee.apiShowtimeCache.hasOwnProperty(Marquee.makeCacheKey());
-      },
+			cached: function() {
+				return Marquee.apiShowtimeCache.hasOwnProperty(Marquee.makeCacheKey());
+			},
 
-      renderFromCache: function() {
-        Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
-        Marquee.processShowtimes();
-        Marquee.renderShowtimes();
-      },
+			renderFromCache: function() {
+				Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
+				Marquee.processShowtimes();
+				Marquee.renderShowtimes();
+			},
 
-      renderShowtimes: function() {
-        var html = '';
-        var showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
-        Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
-          var primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
-          html += `
-            <section class="primary-section">
-              <h1 class="primary-label">${primaryEntity.label}</h1>
-              <ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
-              <div class="secondary-sections">
-          `;
-          var leftCol = '', rightCol = '', i = 1, tipper = Math.ceil(Object.keys(secondaryObject).length/2);
-          Marquee.eachObject(secondaryObject, function(block, secondaryId) {
-            var secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
-            var section = `
-              <section class="secondary-section">
-                <h2 class="secondary-label">${secondaryEntity.label}</h2>
-                <ul class="showtime-block">${block.html}</ul>
-              </section>
-            `;
-            if (i <= tipper) { leftCol  += section; }
-            else             { rightCol += section; }
-            i++;
-          });
-          html += `
-              <div class="secondary-sections-col">${leftCol}</div>
-              <div class="secondary-sections-col">${rightCol}</div>
-            </div>
-          </section>
-          `;
-        });
-        Marquee.els.$showtimes.innerHTML = html;
-      },
+			renderShowtimes: function() {
+				var html = '';
+				var showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
+				Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
+					var primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
+					html += `
+						<section class="primary-section">
+							<h1 class="primary-label">${primaryEntity.label}</h1>
+							<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
+							<div class="secondary-sections">
+					`;
+					var leftCol = '', rightCol = '', i = 1, tipper = Math.ceil(Object.keys(secondaryObject).length/2);
+					Marquee.eachObject(secondaryObject, function(block, secondaryId) {
+						var secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
+						var section = `
+							<section class="secondary-section">
+								<h2 class="secondary-label">${secondaryEntity.label}</h2>
+								<ul class="showtime-block">${block.html}</ul>
+							</section>
+						`;
+						if (i <= tipper) { leftCol  += section; }
+						else             { rightCol += section; }
+						i++;
+					});
+					html += `
+							<div class="secondary-sections-col">${leftCol}</div>
+							<div class="secondary-sections-col">${rightCol}</div>
+						</div>
+					</section>
+					`;
+				});
+				Marquee.els.$showtimes.innerHTML = html;
+			},
 
-      processShowtimes: function() {
-        Marquee.apiShowtimeData.sort(function(a, b) {
-          var aRelease = a.releaseDate || '1900-01-01';
-          var bRelease = b.releaseDate || '1900-01-01';
-          if (aRelease === bRelease) {
-            return a.title > b.title;
-          }
-          return dayjs(aRelease).valueOf() > dayjs(bRelease).valueOf();
-        });
-        Marquee.apiShowtimeData.forEach(function(movie) {
-          Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
-          Marquee.createMovie(movie);
-          movie.showtimes.forEach(function(showtime) {
-            Marquee.createTheater(showtime.theatre);
-            Marquee.seedGroupings(movie.rootId, showtime.theatre.id);
-            Marquee.addToShowtimeBlock(movie, showtime);
-          });
-        });
-        Marquee.createShowtimeHTML();
-        Marquee.groupShowtimes();
-      },
+			processShowtimes: function() {
+				Marquee.apiShowtimeData.sort(function(a, b) {
+					var aRelease = a.releaseDate || '1900-01-01';
+					var bRelease = b.releaseDate || '1900-01-01';
+					if (aRelease === bRelease) {
+						return a.title > b.title;
+					}
+					return dayjs(aRelease).valueOf() > dayjs(bRelease).valueOf();
+				});
+				Marquee.apiShowtimeData.forEach(function(movie) {
+					Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
+					Marquee.createMovie(movie);
+					movie.showtimes.forEach(function(showtime) {
+						Marquee.createTheater(showtime.theatre);
+						Marquee.seedGroupings(movie.rootId, showtime.theatre.id);
+						Marquee.addToShowtimeBlock(movie, showtime);
+					});
+				});
+				Marquee.createShowtimeHTML();
+				Marquee.groupShowtimes();
+			},
 
-      createMovie: function(movie) {
-        Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
-          label:       movie.title || '[no title]',
-          year:        movie.releaseYear || '[no year]',
-          releaseDate: movie.releaseDate || '[no date]',
-          rating:      movie.ratings ? movie.ratings[0].code : null,
-          site:        movie.officialUrl || null,
-          language:    movie.titleLang || null,
-          runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
-        };
-        Marquee.createMovieMetadata(movie.rootId);
-      },
-      createMovieMetadata: function(id) {
-        var movie    = Marquee.dataForMovie[id];
-        var metadata = [];
-        if (parseInt(movie.year) != parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
-        if (movie.releaseDate != '[no date]') { metadata.push(movie.releaseDate); }
-        if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
-        if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
-        if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
-        Marquee.dataForMovie[id].metadata = metadata;
-      },
+			createMovie: function(movie) {
+				Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
+					label:       movie.title || '[no title]',
+					year:        movie.releaseYear || '[no year]',
+					releaseDate: movie.releaseDate || '[no date]',
+					rating:      movie.ratings ? movie.ratings[0].code : null,
+					site:        movie.officialUrl || null,
+					language:    movie.titleLang || null,
+					runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
+				};
+				Marquee.createMovieMetadata(movie.rootId);
+			},
+			createMovieMetadata: function(id) {
+				var movie    = Marquee.dataForMovie[id];
+				var metadata = [];
+				if (parseInt(movie.year) != parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
+				if (movie.releaseDate != '[no date]') { metadata.push(movie.releaseDate); }
+				if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
+				if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
+				if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
+				Marquee.dataForMovie[id].metadata = metadata;
+			},
 
-      createTheater: function(theater) {
-        Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
-          label: theater.name,
-        };
-        Marquee.createTheaterMetadata(theater.id);
-      },
-      createTheaterMetadata: function(id) {
-        var theater  = Marquee.dataForTheater[id];
-        var metadata = [];
-        Marquee.dataForTheater[id].metadata = metadata;
-      },
+			createTheater: function(theater) {
+				Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
+					label: theater.name,
+				};
+				Marquee.createTheaterMetadata(theater.id);
+			},
+			createTheaterMetadata: function(id) {
+				var theater  = Marquee.dataForTheater[id];
+				var metadata = [];
+				Marquee.dataForTheater[id].metadata = metadata;
+			},
 
-      addToShowtimeBlock: function(movie, showtime) {
-        var uid = movie.rootId + '-' + showtime.theatre.id;
-        Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
+			addToShowtimeBlock: function(movie, showtime) {
+				var uid = movie.rootId + '-' + showtime.theatre.id;
+				Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
 
-        var showtimeData = {
-          movieId:       movie.rootId,
-          theaterId:     showtime.theatre.id,
-          dateTime:      showtime.dateTime,
-          dateTimeDayJS: dayjs(showtime.dateTime),
-          ticket:        showtime.ticketURI,
-          threed:        Marquee.is3D(movie),
-          imax:          Marquee.isIMAX(movie),
-        };
-        Marquee.showtimeBlocks[uid].showtimes[showtimeData.dateTimeDayJS.unix()] = showtimeData;
-        Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.dateTimeDayJS.unix());
-      },
+				var showtimeData = {
+					movieId:       movie.rootId,
+					theaterId:     showtime.theatre.id,
+					dateTime:      showtime.dateTime,
+					dateTimeDayJS: dayjs(showtime.dateTime),
+					ticket:        showtime.ticketURI,
+					threed:        Marquee.is3D(movie),
+					imax:          Marquee.isIMAX(movie),
+				};
+				Marquee.showtimeBlocks[uid].showtimes[showtimeData.dateTimeDayJS.unix()] = showtimeData;
+				Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.dateTimeDayJS.unix());
+			},
 
-      seedGroupings: function(movieId, theaterId) {
-        Marquee.showtimesByMovie[movieId] = Marquee.showtimesByMovie[movieId] || {};
-        Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
-        Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
-        Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
-      },
+			seedGroupings: function(movieId, theaterId) {
+				Marquee.showtimesByMovie[movieId] = Marquee.showtimesByMovie[movieId] || {};
+				Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
+				Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
+				Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
+			},
 
-      createShowtimeHTML: function() {
-        Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
-          var html = '';
-          block.showtimesKeys.sort();
-          block.showtimesKeys.forEach(function(key) {
-            var showtimeData = block.showtimes[key];
-            html += `
-              <li data-threed="${showtimeData.threed}" data-imax="${showtimeData.imax}">
-                ${Marquee.createShowtimeLink(showtimeData)}
-              </li>
-            `;
-          });
-          block.html = html;
-        });
-      },
+			createShowtimeHTML: function() {
+				Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
+					var html = '';
+					block.showtimesKeys.sort();
+					block.showtimesKeys.forEach(function(key) {
+						var showtimeData = block.showtimes[key];
+						html += `
+							<li data-threed="${showtimeData.threed}" data-imax="${showtimeData.imax}">
+								${Marquee.createShowtimeLink(showtimeData)}
+							</li>
+						`;
+					});
+					block.html = html;
+				});
+			},
 
-      groupShowtimes: function() {
-        Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
-          var ids       = uid.split('-');
-          var movieId   = ids[0];
-          var theaterId = ids[1];
-          Marquee.showtimesByMovie[movieId][theaterId]   = block;
-          Marquee.showtimesByTheater[theaterId][movieId] = block;
-        });
-      },
+			groupShowtimes: function() {
+				Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
+					var ids       = uid.split('-');
+					var movieId   = ids[0];
+					var theaterId = ids[1];
+					Marquee.showtimesByMovie[movieId][theaterId]   = block;
+					Marquee.showtimesByTheater[theaterId][movieId] = block;
+				});
+			},
 
-      is3D: function(movie) {
-        return (movie.title.indexOf('3D') != -1);
-      },
+			is3D: function(movie) {
+				return (movie.title.indexOf('3D') != -1);
+			},
 
-      isIMAX: function(movie) {
-        return (movie.title.indexOf('IMAX') != -1);
-      },
+			isIMAX: function(movie) {
+				return (movie.title.indexOf('IMAX') != -1);
+			},
 
-      createThreeD: function(showtime) {
-        return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
-      },
+			createThreeD: function(showtime) {
+				return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
+			},
 
-      createIMAX: function(showtime) {
-        return (showtime.imax ? '<span class="imax"> IMAX' : '');
-      },
+			createIMAX: function(showtime) {
+				return (showtime.imax ? '<span class="imax"> IMAX' : '');
+			},
 
-      createShowtimeLink: function(showtime) {
-        if (showtime.dateTimeDayJS.isBefore(dayjs())) {
-          return `
-            <span class="past">
-              ${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
-            </span>`;
-        } else {
-          return `
-            <a href="${showtime.ticket}">
-              ${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
-            </a>`;
-        }
-      },
+			createShowtimeLink: function(showtime) {
+				if (showtime.dateTimeDayJS.isBefore(dayjs())) {
+					return `
+						<span class="past">
+							${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+						</span>`;
+				} else {
+					return `
+						<a href="${showtime.ticket}">
+							${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+						</a>`;
+				}
+			},
 
-      urlParams: function(data) {
-        return Object.keys(data).map(function(key) {
-          return [key, data[key]].map(encodeURIComponent).join("=");
-        }).join("&");
-      },
+			urlParams: function(data) {
+				return Object.keys(data).map(function(key) {
+					return [key, data[key]].map(encodeURIComponent).join("=");
+				}).join("&");
+			},
 
-      eachObject: function(obj, fn) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            fn(obj[key], key);
-          }
-        }
-      },
+			eachObject: function(obj, fn) {
+				for (var key in obj) {
+					if (Object.prototype.hasOwnProperty.call(obj, key)) {
+						fn(obj[key], key);
+					}
+				}
+			},
 
-    };
-    Marquee.init();
+		};
+		Marquee.init();
 
 
 })();
