@@ -417,8 +417,14 @@
 				const params = new URLSearchParams({ ...Marquee.serializeForm(), api_key: apiKey });
 				const response = await fetch(`${Marquee.apiUrl}?${params}`);
 				if (!response.ok) throw new Error('Server error');
+				const text = await response.text();
+				const data = text.trim() ? JSON.parse(text) : [];
+				if (!data.length) {
+					alert('There are no results for this ZIP code.');
+					return;
+				}
 				Marquee.saveCookies();
-				Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = await response.json();
+				Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = data;
 				Marquee.renderFromCache();
 			} catch (err) {
 				alert(err.message || 'Connection error');
