@@ -12,6 +12,7 @@
 			--body--gap: 7rem;
 
 			--animation-timing: 0.25s;
+			--animation-timing--fast: 0.1s;
 
 			@media (min-width: 900px) {
 				--body--padding: 4rem;
@@ -128,13 +129,11 @@
 			> .dropdown-trigger {
 				cursor: pointer;
 				border-bottom: 1px dotted currentColor;
-				transition: border-bottom-color var(--animation-timing) ease;
-
-				&:hover {
-					border-bottom-color: transparent;
-				}
+				transition: border-bottom-color var(--animation-timing--fast) ease;
 
 				&:hover, &:focus-visible {
+					border-bottom-color: transparent;
+
 					.chevron path {
 						&:first-child { d: path("M 2 1 L 7 5"); }
 						&:last-child  { d: path("M 7 5 L 2 9"); }
@@ -262,8 +261,9 @@
 			& a {
 				text-decoration: none;
 				border-bottom: 1px solid currentColor;
+				transition: border-bottom-color var(--animation-timing--fast) ease;
 
-				&:hover {
+				&:hover, &:focus-visible {
 					border-bottom-color: transparent;
 				}
 
