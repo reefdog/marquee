@@ -230,8 +230,8 @@
 	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
 		<input name="password" type="hidden" value="casablanca">
 		<input-group id="geo-options">
-			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP" autofocus>
-			<select name="radius">
+			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP" aria-label="ZIP code" autofocus>
+			<select name="radius" aria-label="Search radius in miles">
 				<option>5</option>
 				<option selected>10</option>
 				<option>50</option>
@@ -239,12 +239,12 @@
 			</select>
 			<button type="submit">Find</button>
 		</input-group>
-		<input-group id="date-options"></input-group>
-		<input-group>
+		<input-group id="date-options" role="radiogroup" aria-label="Date"></input-group>
+		<input-group role="radiogroup" aria-label="Group by">
 			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <radio-label>Movie</radio-label></label>
 			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <radio-label>Theater</radio-label></label>
 		</input-group>
-		<input-group>
+		<input-group role="radiogroup" aria-label="Filter to only">
 			<label class="block-radio-button"><input value="All"  name="filterBy" type="radio" checked> <radio-label>All</radio-label></label>
 			<label class="block-radio-button"><input value="IMAX" name="filterBy" type="radio">         <radio-label>IMAX</radio-label></label>
 			<label class="block-radio-button"><input value="3D"   name="filterBy" type="radio">         <radio-label>3D</radio-label></label>
