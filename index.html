@@ -18,14 +18,20 @@
 		}
 
 		body {
+			--body-padding: 1rem;
+
 			font-family: Inconsolata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 			font-size: 1.6rem;
 			line-height: 150%;
 			color: black;
 			background: white;
-			padding: 1rem;
+			padding: var(--body-padding);
 			max-width: 1600px;
 			transition: padding 200ms ease-in-out;
+
+			@media (min-width: 900px) {
+				--body-padding: 4rem;
+			}
 		}
 
 		header > h1 {
@@ -36,91 +42,43 @@
 
 		main {
 			transition: opacity 100ms ease-in-out;
-		}
-		.loading main {
-			opacity: 0.15;
+
+			.loading & {
+				opacity: 0.15;
+			}
 		}
 
 		a {
 			text-decoration: none;
 			color: inherit;
-		}
-		a:hover {
-			text-decoration: underline;
+
+			&:hover {
+				text-decoration: underline;
+			}
+			& .threed-blue { color: blue; }
+			& .threed-red  { color: red; }
 		}
 
 		#get-showtimes-form {
-			line-height: 100%;
-		}
-
-		.input-group {
 			display: flex;
-		}
-		.input-group > label {
-			flex-grow: 1;
-		}
-
-		.showtime-block > li {
-			margin-right: 2rem;
+			flex-wrap: wrap;
+			min-height: 5rem;
+			line-height: 100%;
+			gap: 1rem 2rem;
 		}
 
-		@media (max-width: 599px) {
-			#get-showtimes-form {
-				display: flex;
-				flex-wrap: wrap;
-				min-height: 5rem;
-			}
+		#geo-options {
+			gap: 0.5rem;
 
-			.input-group {
-				margin-right: 2rem;
-			}
-
-			.input-group:last-child {
-				margin-right: 0;
+			& [name="zip"] {
+				width: 10ch;
+				max-width: calc(100vw - var(--body-padding) * 2);
 			}
 		}
 
-		@media (min-width: 600px) {
-			body {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				column-gap: 2rem;
-				padding: 2rem;
-			}
-			header {
-				min-width: 200px;
-				max-width: 300px;
-			}
-			header > h1 {
-				text-align: center;
-			}
-			.input-group {
-				margin-bottom: 2rem;
-			}
-			#date-options > label {
-				display: none;
-			}
-			#date-options.show-all > label,
-			#date-options > label:nth-child(1),
-			#date-options > label:nth-child(2),
-			#date-options > label:nth-child(3) {
-				display: block;
-			}
-		}
-
-		@media (min-width: 900px) {
-			body {
-				column-gap: 4rem;
-				padding: 4rem;
-			}
-			.secondary-sections {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				column-gap: 4rem;
-			}
-			.showtime-block > li {
-				margin-right: 3rem;
-			}
+		input-group {
+			display: flex;
+			flex-wrap: wrap;
 		}
 
 		.primary-section {
@@ -129,6 +87,14 @@
 
 		.secondary-section {
 			margin: 0 0 2rem 0;
+		}
+
+		.secondary-sections {
+			@media (min-width: 900px) {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				column-gap: 4rem;
+			}
 		}
 
 		.primary-label {
@@ -149,32 +115,35 @@
 			list-style-type: none;
 			font-size: 80%;
 			color: #aaa;
-		}
-			.primary-metadata li {
-				margin: 0;
+
+			& li {
 				padding: 0;
-				list-style-type: none;
 				display: inline-block;
-				margin-right: 2rem;
+				margin: 0 2rem 0 0;
+
+				&:last-child {
+					margin-right: 0;
+				}
 			}
-			.primary-metadata li:last-child {
-				margin-right: 0;
-			}
-			.primary-metadata a {
+			& a {
 				color: #333;
 			}
+		}
 
 		.showtime-block {
 			margin: 0;
 			padding: 0;
 			list-style-type: none;
-		}
-		.showtime-block > li {
-			margin-top: 0;
-			margin-bottom: 0;
-			margin-left: 0;
-			padding: 0;
-			display: inline-block;
+
+			& > li {
+				display: inline-block;
+				margin: 0 2rem 0 0;
+				padding: 0;
+
+				@media (min-width: 900px) {
+					margin-right: 3rem;
+				}
+			}
 		}
 
 		.threed,
@@ -183,47 +152,49 @@
 			font-weight: bold;
 		}
 
-		a .threed-blue {
-			color: blue;
-		}
-		a .threed-red {
-			color: red;
-		}
-
 		.past {
 			color: #aaa;
 		}
 
 		.block-radio-button {
 			cursor: pointer;
-		}
-		.block-radio-button > input[type=radio] {
-			display: none;
-		}
-		.block-radio-button > .label {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			height: 100%;
-			border: 0.1rem solid #BDBDBD;
-			text-align: center;
-			white-space: nowrap;
-			padding: 0.5rem 1.1rem;
-			margin-left: -0.1rem;
-			color: #333;
-		}
-		.block-radio-button > .label:hover {
-			border-width: 0.4rem;
-			padding-left: 0.8rem;
-			padding-right: 0.8rem;
-		}
-		.block-radio-button > input[type=radio]:checked + .label {
-			z-index: 1;
-			border: 0.4rem solid #2F80ED;
-			padding-left: 0.8rem;
-			padding-right: 0.8rem;
-			color: #000;
-			font-weight: bold;
+			user-select: none;
+
+			&:has(> input[type=radio]:disabled) {
+				cursor: not-allowed;
+				opacity: 0.35;
+			}
+
+			& > input[type=radio] {
+				position: absolute;
+				opacity: 0;
+				pointer-events: none;
+
+				&:focus-visible + radio-label {
+					outline: 0.2rem solid #2F80ED;
+					outline-offset: 0.2rem;
+				}
+				&:checked + radio-label {
+					z-index: 1;
+					box-shadow: inset 0 0 0 0.4rem #2F80ED;
+					color: #000;
+					font-weight: bold;
+				}
+			}
+			& > radio-label {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100%;
+				box-shadow: inset 0 0 0 0.1rem #BDBDBD;
+				text-align: center;
+				white-space: nowrap;
+				padding: 0.5rem 1.1rem;
+				color: #333;
+			}
+			&:not(:has(> input[type=radio]:is(:disabled, :checked))) > radio-label:hover {
+				box-shadow: inset 0 0 0 0.4rem #BDBDBD;
+			}
 		}
 
 	</style>
@@ -234,8 +205,8 @@
 	<h1><a href="/">&lt;marquee&gt;</a></h1>
 	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
 		<input name="password" type="hidden" value="casablanca">
-		<div class="input-group">
-			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP">
+		<input-group id="geo-options">
+			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP" autofocus>
 			<select name="radius">
 				<option>5</option>
 				<option selected>10</option>
@@ -243,12 +214,17 @@
 				<option>100</option>
 			</select>
 			<button type="submit">Find</button>
-		</div>
-		<div id="date-options" class="input-group"></div>
-		<div class="input-group">
-			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <span class="label">Movie</span></label>
-			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <span class="label">Theater</span></label>
-		</div>
+		</input-group>
+		<input-group id="date-options"></input-group>
+		<input-group>
+			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <radio-label>Movie</radio-label></label>
+			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <radio-label>Theater</radio-label></label>
+		</input-group>
+		<input-group>
+			<label class="block-radio-button"><input value="All"  name="filterBy" type="radio" checked> <radio-label>All</radio-label></label>
+			<label class="block-radio-button"><input value="IMAX" name="filterBy" type="radio">         <radio-label>IMAX</radio-label></label>
+			<label class="block-radio-button"><input value="3D"   name="filterBy" type="radio">         <radio-label>3D</radio-label></label>
+		</input-group>
 	</form>
 </header>
 
@@ -279,6 +255,7 @@
 			$body:             document.body,
 			$showtimes:        document.getElementById('showtimes'),
 			$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
+			$filterButtons:    document.querySelectorAll('[name="filterBy"]'),
 			$getShowtimesForm: document.getElementById('get-showtimes-form'),
 			$dateOptions:      document.getElementById('date-options'),
 		},
@@ -287,6 +264,7 @@
 			Marquee.loadCookies();
 			Marquee.setupDates();
 			Marquee.updateGroupings();
+			Marquee.filterBy = document.querySelector('[name="filterBy"]:checked').value;
 
 			Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
 			Marquee.els.$dateButtons.forEach(button => {
@@ -295,6 +273,27 @@
 			Marquee.els.$groupButtons.forEach(button => {
 				button.addEventListener('change', Marquee.changeGrouping);
 			});
+			Marquee.els.$filterButtons.forEach(button => {
+				button.addEventListener('change', Marquee.changeFilter);
+			});
+
+			if (localStorage.getItem('zip')) {
+				Marquee.autoSearch();
+			}
+		},
+
+		autoSearch: function() {
+			const radiusSelect = document.querySelector('[name="radius"]');
+			const attempt = () => {
+				Marquee.clearData();
+				Marquee.fetchMovieTimes(() => {
+					if (radiusSelect.selectedIndex < radiusSelect.options.length - 1) {
+						radiusSelect.selectedIndex++;
+						attempt();
+					}
+				});
+			};
+			attempt();
 		},
 
 		loadCookies: function() {
@@ -320,9 +319,9 @@
 							type="radio"
 							${i === 0 ? ' checked' : ''}
 						>
-						<span class="label">
+						<radio-label>
 							${date.format('ddd')}<br>${date.format('MMM D')}
-						</span>
+						</radio-label>
 					</label>
 				`);
 			}
@@ -333,8 +332,7 @@
 
 		changeDate: function() {
 			if (Marquee.submittable()) {
-				Marquee.clearData();
-				Marquee.fetchMovieTimes();
+				Marquee.autoSearch();
 			}
 		},
 
@@ -349,6 +347,13 @@
 			}
 		},
 
+		changeFilter: function() {
+			if (this.checked) {
+				Marquee.filterBy = this.value;
+				Marquee.renderShowtimes();
+			}
+		},
+
 		updateGroupings: function() {
 			Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
 			Marquee.secondaryGroup = Marquee.primaryGroup === 'Movie' ? 'Theater' : 'Movie';
@@ -357,8 +362,7 @@
 		submitShowtimesForm: function(event) {
 			event.preventDefault();
 			if (Marquee.submittable()) {
-				Marquee.clearData();
-				Marquee.fetchMovieTimes();
+				Marquee.autoSearch();
 			}
 		},
 
@@ -406,7 +410,7 @@
 			Marquee.showtimeBlocks     = {};
 		},
 
-		fetchMovieTimes: async function() {
+		fetchMovieTimes: async function(onNoResults) {
 			if (Marquee.cached()) {
 				Marquee.renderFromCache();
 				return;
@@ -420,7 +424,11 @@
 				const text = await response.text();
 				const data = text.trim() ? JSON.parse(text) : [];
 				if (!data.length) {
-					alert('There are no results for this ZIP code.');
+					if (onNoResults) {
+						onNoResults();
+					} else {
+						alert('There are no results for this ZIP code.');
+					}
 					return;
 				}
 				Marquee.saveCookies();
@@ -445,40 +453,71 @@
 		renderFromCache: function() {
 			Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
 			Marquee.processShowtimes();
+			Marquee.updateFilterAvailability();
 			Marquee.renderShowtimes();
+		},
+
+		updateFilterAvailability: function() {
+			const showtimes = Object.values(Marquee.showtimeBlocks).flatMap(b => Object.values(b.showtimes));
+			const hasImax = showtimes.some(s => s.imax);
+			const has3D   = showtimes.some(s => s.threed);
+
+			document.querySelector('[name="filterBy"][value="IMAX"]').disabled = !hasImax;
+			document.querySelector('[name="filterBy"][value="3D"]').disabled   = !has3D;
+
+			if ((Marquee.filterBy === 'IMAX' && !hasImax) || (Marquee.filterBy === '3D' && !has3D)) {
+				document.querySelector('[name="filterBy"][value="All"]').checked = true;
+				Marquee.filterBy = 'All';
+			}
+		},
+
+		filteredBlockHtml: function(block) {
+			if (Marquee.filterBy === 'All') return block.html;
+			const flag = Marquee.filterBy === 'IMAX' ? 'imax' : 'threed';
+			let html = '';
+			block.showtimesKeys.forEach(key => {
+				const s = block.showtimes[key];
+				if (s[flag]) {
+					html += `
+						<li data-threed="${s.threed}" data-imax="${s.imax}">
+							${Marquee.createShowtimeLink(s)}
+						</li>
+					`;
+				}
+			});
+			return html;
 		},
 
 		renderShowtimes: function() {
 			let html = '';
 			const showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
 			Object.entries(showtimes).forEach(([primaryId, secondaryObject]) => {
+				const sections = [];
+				Object.entries(secondaryObject).forEach(([secondaryId, block]) => {
+					const blockHtml = Marquee.filteredBlockHtml(block);
+					if (!blockHtml) return;
+					const secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
+					sections.push(`
+						<section class="secondary-section">
+							<h2 class="secondary-label">${secondaryEntity.label}</h2>
+							<ul class="showtime-block">${blockHtml}</ul>
+						</section>
+					`);
+				});
+				if (!sections.length) return;
+				const tipper = Math.ceil(sections.length / 2);
+				const leftCol  = sections.slice(0, tipper).join('');
+				const rightCol = sections.slice(tipper).join('');
 				const primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
 				html += `
 					<section class="primary-section">
 						<h1 class="primary-label">${primaryEntity.label}</h1>
 						<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
 						<div class="secondary-sections">
-				`;
-				let leftCol = '', rightCol = '';
-				let i = 1;
-				const tipper = Math.ceil(Object.keys(secondaryObject).length / 2);
-				Object.entries(secondaryObject).forEach(([secondaryId, block]) => {
-					const secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
-					const section = `
-						<section class="secondary-section">
-							<h2 class="secondary-label">${secondaryEntity.label}</h2>
-							<ul class="showtime-block">${block.html}</ul>
-						</section>
-					`;
-					if (i <= tipper) { leftCol  += section; }
-					else             { rightCol += section; }
-					i++;
-				});
-				html += `
-						<div class="secondary-sections-col">${leftCol}</div>
-						<div class="secondary-sections-col">${rightCol}</div>
-					</div>
-				</section>
+							<div class="secondary-sections-col">${leftCol}</div>
+							<div class="secondary-sections-col">${rightCol}</div>
+						</div>
+					</section>
 				`;
 			});
 			Marquee.els.$showtimes.innerHTML = html;
