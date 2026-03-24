@@ -7,9 +7,9 @@
 	<!-- <link rel="apple-touch-startup-image" href="/launch.png"> -->
 	<!-- <link rel="apple-touch-icon" href="touch-icon-iphone.png"> -->
 	<title>marquee: movie showtimes that are good</title>
-	<link rel="stylesheet" href="/assets/normalize.css" type="text/css" media="screen">
-	<style type="text/css">
-		*,*:before,*:after {
+	<link rel="stylesheet" href="/assets/normalize.css" media="screen">
+	<style>
+		*,*::before,*::after {
 			box-sizing: border-box;
 		}
 
@@ -41,9 +41,7 @@
 			opacity: 0.15;
 		}
 
-		a,
-		a:link,
-		a:visited {
+		a {
 			text-decoration: none;
 			color: inherit;
 		}
@@ -86,7 +84,7 @@
 			body {
 				display: grid;
 				grid-template-columns: auto 1fr;
-				grid-column-gap: 2rem;
+				column-gap: 2rem;
 				padding: 2rem;
 			}
 			header {
@@ -112,13 +110,13 @@
 
 		@media (min-width: 900px) {
 			body {
-				grid-column-gap: 4rem;
+				column-gap: 4rem;
 				padding: 4rem;
 			}
 			.secondary-sections {
 				display: grid;
 				grid-template-columns: 1fr 1fr;
-				grid-column-gap: 4rem;
+				column-gap: 4rem;
 			}
 			.showtime-block > li {
 				margin-right: 3rem;
@@ -189,7 +187,7 @@
 			color: blue;
 		}
 		a .threed-red {
-			color: red;;
+			color: red;
 		}
 
 		.past {
@@ -237,7 +235,7 @@
 	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
 		<input name="password" type="hidden" value="casablanca">
 		<div class="input-group">
-			<input name="zip" type="text" placeholder="ZIP">
+			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP">
 			<select name="radius">
 				<option>5</option>
 				<option selected>10</option>
@@ -256,360 +254,370 @@
 
 <main id="showtimes"></main>
 
-<script src="/assets/sjcl.min.js"></script>
 <script src="/assets/dayjs.min.js"></script>
-<script src="/assets/js.cookie.min.js"></script>
 <script>
 
 (function(){
 
-		var Marquee = window.Marquee = window.Marquee || {
+	const Marquee = window.Marquee = window.Marquee || {
 
-			apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings?',
-			apiShowtimeCache: {},
-			apiShowtimeData:  [],
-			apiKeyEncrypted: "{\"iv\":\"cWyFbj8eA3U7qF67jlhvJw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"E4Ly3NmRoNM=\",\"ct\":\"lJ8Mia/1Rjh/lRIU9lhNgo2o1RPf3MpxLzOjEv99ZvI=\"}",
-			sortOrders: {
-				byMovie: {
-					byTitle: [],
-					byReleaseDate: [],
-				},
-				byTheater: {
-					byName: [],
-				},
+		apiUrl: 'https://data.tmsapi.com/v1.1/movies/showings',
+		apiShowtimeCache: {},
+		apiShowtimeData:  [],
+		apiKeyEncrypted: "{\"salt\":\"0Vs0u/2OElGlRPpkGK8ghg==\",\"iv\":\"YzgrD4KQ6/653fBc\",\"ct\":\"IzFp0LOO7cfsxRJKBNRhvbEblXutrafAo1lgcaR8UhYEnlgWN2KXOw==\"}",
+		sortOrders: {
+			byMovie: {
+				byTitle: [],
+				byReleaseDate: [],
 			},
-
-			els: {
-				$body:             document.body,
-				$showtimes:        document.getElementById('showtimes'),
-				$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-				$getShowtimesForm: document.getElementById('get-showtimes-form'),
-				$dateOptions:      document.getElementById('date-options'),
+			byTheater: {
+				byName: [],
 			},
+		},
 
-			init: function() {
-				Marquee.loadCookies();
-				Marquee.setupDates();
-				Marquee.updateGroupings();
+		els: {
+			$body:             document.body,
+			$showtimes:        document.getElementById('showtimes'),
+			$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
+			$getShowtimesForm: document.getElementById('get-showtimes-form'),
+			$dateOptions:      document.getElementById('date-options'),
+		},
 
-				Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
-				Marquee.els.$dateButtons.forEach(function(button){
-					button.addEventListener('change', Marquee.changeDate);
-				});
-				Marquee.els.$groupButtons.forEach(function(button){
-					button.addEventListener('change', Marquee.changeGrouping);
-				});
-			},
+		init: function() {
+			Marquee.loadCookies();
+			Marquee.setupDates();
+			Marquee.updateGroupings();
 
-			loadCookies: function() {
-				var zip = Cookies.get('zip');
-				if (zip) {
-					document.querySelector('[name="zip"]').setAttribute('value', zip);
-				}
-			},
+			Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
+			Marquee.els.$dateButtons.forEach(button => {
+				button.addEventListener('change', Marquee.changeDate);
+			});
+			Marquee.els.$groupButtons.forEach(button => {
+				button.addEventListener('change', Marquee.changeGrouping);
+			});
+		},
 
-			saveCookies: function() {
-				Cookies.set('zip', document.querySelector('[name="zip"]').value);
-			},
+		loadCookies: function() {
+			const zip = localStorage.getItem('zip');
+			if (zip) {
+				document.querySelector('[name="zip"]').value = zip;
+			}
+		},
 
-			setupDates: function() {
-				var dates = [];
-				for (var i = 0; i < 7; i++) {
-					var date = dayjs().add(i, 'day');
-					dates.push(`
-						<label class="block-radio-button">
-							<input 
-								value="${date.format('YYYY-MM-DD')}" 
-								name="startDate" 
-								type="radio"
-								${i === 0 ? ' checked' : ''}
-							>
-							<span class="label">
-								${date.format('ddd')}<br>${date.format('MMM D')}
-							</span>
-						</label>
-					`);
-				}
-				dates = dates.join('');
-				Marquee.els.$dateOptions.innerHTML = dates;
-				Marquee.els.$dateButtons = document.querySelectorAll('[name="startDate"]');
-			},
+		saveCookies: function() {
+			localStorage.setItem('zip', document.querySelector('[name="zip"]').value);
+		},
 
-			changeDate: function() {
-				if (Marquee.submittable()) {
-					Marquee.clearData();
-					Marquee.fetchMovieTimes();
-				}
-			},
+		setupDates: function() {
+			let dates = [];
+			for (let i = 0; i < 7; i++) {
+				const date = dayjs().add(i, 'day');
+				dates.push(`
+					<label class="block-radio-button">
+						<input
+							value="${date.format('YYYY-MM-DD')}"
+							name="startDate"
+							type="radio"
+							${i === 0 ? ' checked' : ''}
+						>
+						<span class="label">
+							${date.format('ddd')}<br>${date.format('MMM D')}
+						</span>
+					</label>
+				`);
+			}
+			dates = dates.join('');
+			Marquee.els.$dateOptions.innerHTML = dates;
+			Marquee.els.$dateButtons = document.querySelectorAll('[name="startDate"]');
+		},
 
-			submittable: function() {
-				return (document.querySelector('[name="zip"]').value !== '');
-			},
+		changeDate: function() {
+			if (Marquee.submittable()) {
+				Marquee.clearData();
+				Marquee.fetchMovieTimes();
+			}
+		},
 
-			changeGrouping: function() {
-				Marquee.updateGroupings();
-				if (this.checked) {
-					Marquee.renderShowtimes();
-				}
-			},
+		submittable: function() {
+			return (document.querySelector('[name="zip"]').value !== '');
+		},
 
-			updateGroupings: function() {
-				Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
-				Marquee.secondaryGroup = Marquee.primaryGroup == 'Movie' ? 'Theater' : 'Movie';
-			},
-
-			submitShowtimesForm: function(event) {
-				event.preventDefault();
-				if (Marquee.submittable()) {
-					Marquee.clearData();
-					Marquee.fetchMovieTimes();
-				}
-			},
-
-			serializeForm: function() {
-				return {
-					api_key:   sjcl.decrypt(document.querySelector('[name="password"]').value, Marquee.apiKeyEncrypted),
-					zip:       document.querySelector('[name="zip"]').value,
-					radius:    document.querySelector('[name="radius"]').value,
-					startDate: document.querySelector('[name="startDate"]:checked').value,
-				};
-			},
-
-			clearData: function() {
-				Marquee.apiShowtimeData    = [];
-				Marquee.dataForMovie       = {};
-				Marquee.dataForTheater     = {};
-				Marquee.showtimesByMovie   = {};
-				Marquee.showtimesByTheater = {};
-				Marquee.showtimeBlocks     = {};
-			},
-
-			fetchMovieTimes: function() {
-				if (Marquee.cached()) {
-					Marquee.renderFromCache();
-				} else {
-					Marquee.els.$body.classList.add('loading');
-					var request = new XMLHttpRequest();
-					request.open('GET', Marquee.apiUrl + Marquee.urlParams(Marquee.serializeForm()), true);
-					request.onload = function() {
-						Marquee.els.$body.classList.remove('loading');
-						if (this.status >= 200 && this.status < 400) {
-							Marquee.saveCookies();
-							Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = JSON.parse(this.response);
-							Marquee.renderFromCache();
-						} else {
-							alert('Server error');
-						}
-					};
-					request.onerror = function() {
-						alert('Connection error');
-					};
-					request.send();
-				}
-			},
-
-			makeCacheKey: function() {
-				var data = Marquee.serializeForm();
-				return data.zip + '--' + data.radius + '--' + data.startDate;
-			},
-
-			cached: function() {
-				return Marquee.apiShowtimeCache.hasOwnProperty(Marquee.makeCacheKey());
-			},
-
-			renderFromCache: function() {
-				Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
-				Marquee.processShowtimes();
+		changeGrouping: function() {
+			Marquee.updateGroupings();
+			if (this.checked) {
 				Marquee.renderShowtimes();
-			},
+			}
+		},
 
-			renderShowtimes: function() {
-				var html = '';
-				var showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
-				Marquee.eachObject(showtimes, function(secondaryObject, primaryId) {
-					var primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
-					html += `
-						<section class="primary-section">
-							<h1 class="primary-label">${primaryEntity.label}</h1>
-							<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
-							<div class="secondary-sections">
+		updateGroupings: function() {
+			Marquee.primaryGroup = document.querySelector('[name="groupBy"]:checked').value;
+			Marquee.secondaryGroup = Marquee.primaryGroup === 'Movie' ? 'Theater' : 'Movie';
+		},
+
+		submitShowtimesForm: function(event) {
+			event.preventDefault();
+			if (Marquee.submittable()) {
+				Marquee.clearData();
+				Marquee.fetchMovieTimes();
+			}
+		},
+
+		decryptApiKey: async function() {
+			const password = document.querySelector('[name="password"]').value;
+			const { salt, iv, ct } = JSON.parse(Marquee.apiKeyEncrypted);
+			const enc = new TextEncoder();
+			const keyMaterial = await crypto.subtle.importKey(
+				'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
+			);
+			const key = await crypto.subtle.deriveKey(
+				{
+					name: 'PBKDF2',
+					salt: Uint8Array.from(atob(salt), c => c.charCodeAt(0)),
+					iterations: 100000,
+					hash: 'SHA-256',
+				},
+				keyMaterial,
+				{ name: 'AES-GCM', length: 256 },
+				false,
+				['decrypt']
+			);
+			const decrypted = await crypto.subtle.decrypt(
+				{ name: 'AES-GCM', iv: Uint8Array.from(atob(iv), c => c.charCodeAt(0)) },
+				key,
+				Uint8Array.from(atob(ct), c => c.charCodeAt(0))
+			);
+			return new TextDecoder().decode(decrypted);
+		},
+
+		serializeForm: function() {
+			return {
+				zip:       document.querySelector('[name="zip"]').value,
+				radius:    document.querySelector('[name="radius"]').value,
+				startDate: document.querySelector('[name="startDate"]:checked').value,
+			};
+		},
+
+		clearData: function() {
+			Marquee.apiShowtimeData    = [];
+			Marquee.dataForMovie       = {};
+			Marquee.dataForTheater     = {};
+			Marquee.showtimesByMovie   = {};
+			Marquee.showtimesByTheater = {};
+			Marquee.showtimeBlocks     = {};
+		},
+
+		fetchMovieTimes: async function() {
+			if (Marquee.cached()) {
+				Marquee.renderFromCache();
+				return;
+			}
+			Marquee.els.$body.classList.add('loading');
+			try {
+				const apiKey = await Marquee.decryptApiKey();
+				const params = new URLSearchParams({ ...Marquee.serializeForm(), api_key: apiKey });
+				const response = await fetch(`${Marquee.apiUrl}?${params}`);
+				if (!response.ok) throw new Error('Server error');
+				Marquee.saveCookies();
+				Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = await response.json();
+				Marquee.renderFromCache();
+			} catch (err) {
+				alert(err.message || 'Connection error');
+			} finally {
+				Marquee.els.$body.classList.remove('loading');
+			}
+		},
+
+		makeCacheKey: function() {
+			const data = Marquee.serializeForm();
+			return `${data.zip}--${data.radius}--${data.startDate}`;
+		},
+
+		cached: function() {
+			return Object.hasOwn(Marquee.apiShowtimeCache, Marquee.makeCacheKey());
+		},
+
+		renderFromCache: function() {
+			Marquee.apiShowtimeData = Marquee.apiShowtimeCache[Marquee.makeCacheKey()];
+			Marquee.processShowtimes();
+			Marquee.renderShowtimes();
+		},
+
+		renderShowtimes: function() {
+			let html = '';
+			const showtimes = Marquee[`showtimesBy${Marquee.primaryGroup}`];
+			Object.entries(showtimes).forEach(([primaryId, secondaryObject]) => {
+				const primaryEntity = Marquee[`dataFor${Marquee.primaryGroup}`][primaryId];
+				html += `
+					<section class="primary-section">
+						<h1 class="primary-label">${primaryEntity.label}</h1>
+						<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
+						<div class="secondary-sections">
+				`;
+				let leftCol = '', rightCol = '';
+				let i = 1;
+				const tipper = Math.ceil(Object.keys(secondaryObject).length / 2);
+				Object.entries(secondaryObject).forEach(([secondaryId, block]) => {
+					const secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
+					const section = `
+						<section class="secondary-section">
+							<h2 class="secondary-label">${secondaryEntity.label}</h2>
+							<ul class="showtime-block">${block.html}</ul>
+						</section>
 					`;
-					var leftCol = '', rightCol = '', i = 1, tipper = Math.ceil(Object.keys(secondaryObject).length/2);
-					Marquee.eachObject(secondaryObject, function(block, secondaryId) {
-						var secondaryEntity = Marquee[`dataFor${Marquee.secondaryGroup}`][secondaryId];
-						var section = `
-							<section class="secondary-section">
-								<h2 class="secondary-label">${secondaryEntity.label}</h2>
-								<ul class="showtime-block">${block.html}</ul>
-							</section>
-						`;
-						if (i <= tipper) { leftCol  += section; }
-						else             { rightCol += section; }
-						i++;
-					});
+					if (i <= tipper) { leftCol  += section; }
+					else             { rightCol += section; }
+					i++;
+				});
+				html += `
+						<div class="secondary-sections-col">${leftCol}</div>
+						<div class="secondary-sections-col">${rightCol}</div>
+					</div>
+				</section>
+				`;
+			});
+			Marquee.els.$showtimes.innerHTML = html;
+		},
+
+		processShowtimes: function() {
+			Marquee.apiShowtimeData.sort((a, b) => {
+				const aRelease = a.releaseDate || '1900-01-01';
+				const bRelease = b.releaseDate || '1900-01-01';
+				if (aRelease === bRelease) {
+					return a.title > b.title;
+				}
+				return dayjs(aRelease).valueOf() > dayjs(bRelease).valueOf();
+			});
+			Marquee.apiShowtimeData.forEach(movie => {
+				Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
+				Marquee.createMovie(movie);
+				movie.showtimes.forEach(showtime => {
+					Marquee.createTheater(showtime.theatre);
+					Marquee.seedGroupings(movie.rootId, showtime.theatre.id);
+					Marquee.addToShowtimeBlock(movie, showtime);
+				});
+			});
+			Marquee.createShowtimeHTML();
+			Marquee.groupShowtimes();
+		},
+
+		createMovie: function(movie) {
+			Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
+				label:       movie.title || '[no title]',
+				year:        movie.releaseYear || '[no year]',
+				releaseDate: movie.releaseDate || '[no date]',
+				rating:      movie.ratings ? movie.ratings[0].code : null,
+				site:        movie.officialUrl || null,
+				language:    movie.titleLang || null,
+				runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
+			};
+			Marquee.createMovieMetadata(movie.rootId);
+		},
+
+		createMovieMetadata: function(id) {
+			const movie    = Marquee.dataForMovie[id];
+			const metadata = [];
+			if (parseInt(movie.year) !== parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
+			if (movie.releaseDate !== '[no date]') { metadata.push(movie.releaseDate); }
+			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
+			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
+			if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
+			Marquee.dataForMovie[id].metadata = metadata;
+		},
+
+		createTheater: function(theater) {
+			Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
+				label: theater.name,
+			};
+			Marquee.createTheaterMetadata(theater.id);
+		},
+
+		createTheaterMetadata: function(id) {
+			const metadata = [];
+			Marquee.dataForTheater[id].metadata = metadata;
+		},
+
+		addToShowtimeBlock: function(movie, showtime) {
+			const uid = movie.rootId + '-' + showtime.theatre.id;
+			Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
+
+			const showtimeData = {
+				movieId:       movie.rootId,
+				theaterId:     showtime.theatre.id,
+				dateTime:      showtime.dateTime,
+				dateTimeDayJS: dayjs(showtime.dateTime),
+				ticket:        showtime.ticketURI,
+				threed:        Marquee.is3D(movie),
+				imax:          Marquee.isIMAX(movie),
+			};
+			Marquee.showtimeBlocks[uid].showtimes[showtimeData.dateTimeDayJS.unix()] = showtimeData;
+			Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.dateTimeDayJS.unix());
+		},
+
+		seedGroupings: function(movieId, theaterId) {
+			Marquee.showtimesByMovie[movieId] = Marquee.showtimesByMovie[movieId] || {};
+			Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
+			Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
+			Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
+		},
+
+		createShowtimeHTML: function() {
+			Object.entries(Marquee.showtimeBlocks).forEach(([uid, block]) => {
+				let html = '';
+				block.showtimesKeys.sort();
+				block.showtimesKeys.forEach(key => {
+					const showtimeData = block.showtimes[key];
 					html += `
-							<div class="secondary-sections-col">${leftCol}</div>
-							<div class="secondary-sections-col">${rightCol}</div>
-						</div>
-					</section>
+						<li data-threed="${showtimeData.threed}" data-imax="${showtimeData.imax}">
+							${Marquee.createShowtimeLink(showtimeData)}
+						</li>
 					`;
 				});
-				Marquee.els.$showtimes.innerHTML = html;
-			},
+				block.html = html;
+			});
+		},
 
-			processShowtimes: function() {
-				Marquee.apiShowtimeData.sort(function(a, b) {
-					var aRelease = a.releaseDate || '1900-01-01';
-					var bRelease = b.releaseDate || '1900-01-01';
-					if (aRelease === bRelease) {
-						return a.title > b.title;
-					}
-					return dayjs(aRelease).valueOf() > dayjs(bRelease).valueOf();
-				});
-				Marquee.apiShowtimeData.forEach(function(movie) {
-					Marquee.sortOrders.byMovie.byReleaseDate.push(movie.rootId);
-					Marquee.createMovie(movie);
-					movie.showtimes.forEach(function(showtime) {
-						Marquee.createTheater(showtime.theatre);
-						Marquee.seedGroupings(movie.rootId, showtime.theatre.id);
-						Marquee.addToShowtimeBlock(movie, showtime);
-					});
-				});
-				Marquee.createShowtimeHTML();
-				Marquee.groupShowtimes();
-			},
+		groupShowtimes: function() {
+			Object.entries(Marquee.showtimeBlocks).forEach(([uid, block]) => {
+				const ids       = uid.split('-');
+				const movieId   = ids[0];
+				const theaterId = ids[1];
+				Marquee.showtimesByMovie[movieId][theaterId]   = block;
+				Marquee.showtimesByTheater[theaterId][movieId] = block;
+			});
+		},
 
-			createMovie: function(movie) {
-				Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
-					label:       movie.title || '[no title]',
-					year:        movie.releaseYear || '[no year]',
-					releaseDate: movie.releaseDate || '[no date]',
-					rating:      movie.ratings ? movie.ratings[0].code : null,
-					site:        movie.officialUrl || null,
-					language:    movie.titleLang || null,
-					runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
-				};
-				Marquee.createMovieMetadata(movie.rootId);
-			},
-			createMovieMetadata: function(id) {
-				var movie    = Marquee.dataForMovie[id];
-				var metadata = [];
-				if (parseInt(movie.year) != parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
-				if (movie.releaseDate != '[no date]') { metadata.push(movie.releaseDate); }
-				if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
-				if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
-				if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
-				Marquee.dataForMovie[id].metadata = metadata;
-			},
+		is3D: function(movie) {
+			return movie.title.includes('3D');
+		},
 
-			createTheater: function(theater) {
-				Marquee.dataForTheater[theater.id] = Marquee.dataForTheater[theater.id] || {
-					label: theater.name,
-				};
-				Marquee.createTheaterMetadata(theater.id);
-			},
-			createTheaterMetadata: function(id) {
-				var theater  = Marquee.dataForTheater[id];
-				var metadata = [];
-				Marquee.dataForTheater[id].metadata = metadata;
-			},
+		isIMAX: function(movie) {
+			return movie.title.includes('IMAX');
+		},
 
-			addToShowtimeBlock: function(movie, showtime) {
-				var uid = movie.rootId + '-' + showtime.theatre.id;
-				Marquee.showtimeBlocks[uid] = Marquee.showtimeBlocks[uid] || {showtimes: {}, showtimesKeys: []};
+		createThreeD: function(showtime) {
+			return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
+		},
 
-				var showtimeData = {
-					movieId:       movie.rootId,
-					theaterId:     showtime.theatre.id,
-					dateTime:      showtime.dateTime,
-					dateTimeDayJS: dayjs(showtime.dateTime),
-					ticket:        showtime.ticketURI,
-					threed:        Marquee.is3D(movie),
-					imax:          Marquee.isIMAX(movie),
-				};
-				Marquee.showtimeBlocks[uid].showtimes[showtimeData.dateTimeDayJS.unix()] = showtimeData;
-				Marquee.showtimeBlocks[uid].showtimesKeys.push(showtimeData.dateTimeDayJS.unix());
-			},
+		createIMAX: function(showtime) {
+			return (showtime.imax ? '<span class="imax"> IMAX</span>' : '');
+		},
 
-			seedGroupings: function(movieId, theaterId) {
-				Marquee.showtimesByMovie[movieId] = Marquee.showtimesByMovie[movieId] || {};
-				Marquee.showtimesByMovie[movieId][theaterId] = Marquee.showtimesByMovie[movieId][theaterId] || {};
-				Marquee.showtimesByTheater[theaterId] = Marquee.showtimesByTheater[theaterId] || {};
-				Marquee.showtimesByTheater[theaterId][movieId] = Marquee.showtimesByTheater[theaterId][movieId] || {};
-			},
+		createShowtimeLink: function(showtime) {
+			if (showtime.dateTimeDayJS.isBefore(dayjs())) {
+				return `
+					<span class="past">
+						${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+					</span>`;
+			} else {
+				return `
+					<a href="${showtime.ticket}">
+						${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
+					</a>`;
+			}
+		},
 
-			createShowtimeHTML: function() {
-				Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
-					var html = '';
-					block.showtimesKeys.sort();
-					block.showtimesKeys.forEach(function(key) {
-						var showtimeData = block.showtimes[key];
-						html += `
-							<li data-threed="${showtimeData.threed}" data-imax="${showtimeData.imax}">
-								${Marquee.createShowtimeLink(showtimeData)}
-							</li>
-						`;
-					});
-					block.html = html;
-				});
-			},
-
-			groupShowtimes: function() {
-				Marquee.eachObject(Marquee.showtimeBlocks, function(block, uid) {
-					var ids       = uid.split('-');
-					var movieId   = ids[0];
-					var theaterId = ids[1];
-					Marquee.showtimesByMovie[movieId][theaterId]   = block;
-					Marquee.showtimesByTheater[theaterId][movieId] = block;
-				});
-			},
-
-			is3D: function(movie) {
-				return (movie.title.indexOf('3D') != -1);
-			},
-
-			isIMAX: function(movie) {
-				return (movie.title.indexOf('IMAX') != -1);
-			},
-
-			createThreeD: function(showtime) {
-				return (showtime.threed ? '<span class="threed"> <span class="threed-blue">3</span><span class="threed-red">D</span></span>' : '');
-			},
-
-			createIMAX: function(showtime) {
-				return (showtime.imax ? '<span class="imax"> IMAX' : '');
-			},
-
-			createShowtimeLink: function(showtime) {
-				if (showtime.dateTimeDayJS.isBefore(dayjs())) {
-					return `
-						<span class="past">
-							${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
-						</span>`;
-				} else {
-					return `
-						<a href="${showtime.ticket}">
-							${showtime.dateTimeDayJS.format('h:mma')}${Marquee.createThreeD(showtime)}${Marquee.createIMAX(showtime)}
-						</a>`;
-				}
-			},
-
-			urlParams: function(data) {
-				return Object.keys(data).map(function(key) {
-					return [key, data[key]].map(encodeURIComponent).join("=");
-				}).join("&");
-			},
-
-			eachObject: function(obj, fn) {
-				for (var key in obj) {
-					if (Object.prototype.hasOwnProperty.call(obj, key)) {
-						fn(obj[key], key);
-					}
-				}
-			},
-
-		};
-		Marquee.init();
+	};
+	Marquee.init();
 
 
 })();
