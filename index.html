@@ -379,8 +379,9 @@
 			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <input-label>Movie</input-label></label>
 			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <input-label>Theater</input-label></label>
 		</input-group>
-		<input-group>
-			<label class="block-checkbox"><input name="filterFormat" type="checkbox"> <input-label>IMAX only</input-label></label>
+		<input-group role="radiogroup" aria-label="Filter to only">
+			<label class="block-radio-button"><input value="All"  name="filterFormat" type="radio" checked> <input-label>All</input-label></label>
+			<label class="block-radio-button"><input value="IMAX" name="filterFormat" type="radio">         <input-label>IMAX</input-label></label>
 		</input-group>
 		<input-group role="radiogroup" aria-label="Dimension">
 			<label class="block-radio-button"><input value="Both" name="filterDimension" type="radio" checked> <input-label>Both</input-label></label>
@@ -419,7 +420,7 @@
 			$body:             document.body,
 			$showtimes:        document.getElementById('showtimes'),
 			$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-			$filterFormat:     document.querySelector('[name="filterFormat"]'),
+			$filterFormatButtons: document.querySelectorAll('[name="filterFormat"]'),
 			$filterDimensionButtons: document.querySelectorAll('[name="filterDimension"]'),
 			$getShowtimesForm: document.getElementById('get-showtimes-form'),
 			$dateOptions:      document.getElementById('date-options'),
@@ -429,7 +430,7 @@
 			Marquee.loadPreferences();
 			Marquee.setupDates();
 			Marquee.updateGroupings();
-			Marquee.filterFormatImax = false;
+			Marquee.filterFormatImax = document.querySelector('[name="filterFormat"]:checked').value === 'IMAX';
 			Marquee.filterDimension  = document.querySelector('[name="filterDimension"]:checked').value;
 
 			Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
@@ -439,7 +440,9 @@
 			Marquee.els.$groupButtons.forEach(button => {
 				button.addEventListener('change', Marquee.changeGrouping);
 			});
-			Marquee.els.$filterFormat.addEventListener('change', Marquee.changeFilterFormat);
+			Marquee.els.$filterFormatButtons.forEach(button => {
+				button.addEventListener('change', Marquee.changeFilterFormat);
+			});
 			Marquee.els.$filterDimensionButtons.forEach(button => {
 				button.addEventListener('change', Marquee.changeFilterDimension);
 			});
@@ -474,7 +477,7 @@
 			if (radius)          { document.querySelector('[name="radius"]').value = radius; }
 			if (groupBy)         { document.querySelector(`[name="groupBy"][value="${groupBy}"]`).checked = true; }
 			if (filterDimension) { document.querySelector(`[name="filterDimension"][value="${filterDimension}"]`).checked = true; }
-			if (filterFormat)    { document.querySelector('[name="filterFormat"]').checked = filterFormat === 'true'; }
+			if (filterFormat)    { document.querySelector(`[name="filterFormat"][value="${filterFormat}"]`).checked = true; }
 		},
 
 		savePreferences: function() {
@@ -482,7 +485,7 @@
 			localStorage.setItem('radius',          document.querySelector('[name="radius"]').value);
 			localStorage.setItem('groupBy',         document.querySelector('[name="groupBy"]:checked').value);
 			localStorage.setItem('filterDimension', document.querySelector('[name="filterDimension"]:checked').value);
-			localStorage.setItem('filterFormat',    document.querySelector('[name="filterFormat"]').checked);
+			localStorage.setItem('filterFormat',    document.querySelector('[name="filterFormat"]:checked').value);
 		},
 
 		setupDates: function() {
@@ -527,10 +530,12 @@
 		},
 
 		changeFilterFormat: function() {
-			Marquee.filterFormatImax = this.checked;
-			Marquee.updateFilterAvailability();
-			Marquee.savePreferences();
-			Marquee.renderShowtimes();
+			if (this.checked) {
+				Marquee.filterFormatImax = this.value === 'IMAX';
+				Marquee.updateFilterAvailability();
+				Marquee.savePreferences();
+				Marquee.renderShowtimes();
+			}
 		},
 
 		changeFilterDimension: function() {
@@ -656,12 +661,12 @@
 			const threeDAvailable = imax ? imax3D : (imax3D || nonImax3D);
 			const twoDAvailable   = imax ? imax2D : (imax2D || nonImax2D);
 
-			Marquee.els.$filterFormat.disabled                                      = !imaxAvailable;
+			document.querySelector('[name="filterFormat"][value="IMAX"]').disabled  = !imaxAvailable;
 			document.querySelector('[name="filterDimension"][value="3D"]').disabled = !threeDAvailable;
 			document.querySelector('[name="filterDimension"][value="2D"]').disabled = !twoDAvailable;
 
 			if (Marquee.filterFormatImax && !imaxAvailable) {
-				Marquee.els.$filterFormat.checked = false;
+				document.querySelector('[name="filterFormat"][value="All"]').checked = true;
 				Marquee.filterFormatImax = false;
 			}
 			if (Marquee.filterDimension === '3D' && !threeDAvailable) {
