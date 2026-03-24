@@ -315,32 +315,32 @@
 			color: #aaa;
 		}
 
-		.block-radio-button {
+		.block-radio-button, .block-checkbox {
 			cursor: pointer;
 			user-select: none;
 
-			&:has(> input[type=radio]:disabled) {
+			&:has(> input:disabled) {
 				cursor: not-allowed;
 				opacity: 0.35;
 			}
 
-			& > input[type=radio] {
+			& > input {
 				position: absolute;
 				opacity: 0;
 				pointer-events: none;
 
-				&:focus-visible + radio-label {
+				&:focus-visible + input-label {
 					outline: 0.2rem solid #2F80ED;
 					outline-offset: 0.2rem;
 				}
-				&:checked + radio-label {
+				&:checked + input-label {
 					z-index: 1;
 					box-shadow: inset 0 0 0 0.4rem #2F80ED;
 					color: #000;
 					font-weight: bold;
 				}
 			}
-			& > radio-label {
+			& > input-label {
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -351,7 +351,7 @@
 				padding: 0.5rem 1.1rem;
 				color: #333;
 			}
-			&:not(:has(> input[type=radio]:is(:disabled, :checked))) > radio-label:hover {
+			&:not(:has(> input:is(:disabled, :checked))) > input-label:hover {
 				box-shadow: inset 0 0 0 0.4rem #BDBDBD;
 			}
 		}
@@ -376,13 +376,16 @@
 		</input-group>
 		<input-group id="date-options" role="radiogroup" aria-label="Date"></input-group>
 		<input-group role="radiogroup" aria-label="Group by">
-			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <radio-label>Movie</radio-label></label>
-			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <radio-label>Theater</radio-label></label>
+			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <input-label>Movie</input-label></label>
+			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <input-label>Theater</input-label></label>
 		</input-group>
-		<input-group role="radiogroup" aria-label="Filter to only">
-			<label class="block-radio-button"><input value="All"  name="filterBy" type="radio" checked> <radio-label>All</radio-label></label>
-			<label class="block-radio-button"><input value="IMAX" name="filterBy" type="radio">         <radio-label>IMAX</radio-label></label>
-			<label class="block-radio-button"><input value="3D"   name="filterBy" type="radio">         <radio-label>3D</radio-label></label>
+		<input-group>
+			<label class="block-checkbox"><input name="filterFormat" type="checkbox"> <input-label>IMAX only</input-label></label>
+		</input-group>
+		<input-group role="radiogroup" aria-label="Dimension">
+			<label class="block-radio-button"><input value="Both" name="filterDimension" type="radio" checked> <input-label>Both</input-label></label>
+			<label class="block-radio-button"><input value="2D"   name="filterDimension" type="radio">         <input-label>2D</input-label></label>
+			<label class="block-radio-button"><input value="3D"   name="filterDimension" type="radio">         <input-label>3D</input-label></label>
 		</input-group>
 	</form>
 </header>
@@ -416,7 +419,8 @@
 			$body:             document.body,
 			$showtimes:        document.getElementById('showtimes'),
 			$groupButtons:     document.querySelectorAll('[name="groupBy"]'),
-			$filterButtons:    document.querySelectorAll('[name="filterBy"]'),
+			$filterFormat:     document.querySelector('[name="filterFormat"]'),
+			$filterDimensionButtons: document.querySelectorAll('[name="filterDimension"]'),
 			$getShowtimesForm: document.getElementById('get-showtimes-form'),
 			$dateOptions:      document.getElementById('date-options'),
 		},
@@ -425,7 +429,8 @@
 			Marquee.loadCookies();
 			Marquee.setupDates();
 			Marquee.updateGroupings();
-			Marquee.filterBy = document.querySelector('[name="filterBy"]:checked').value;
+			Marquee.filterFormatImax = false;
+			Marquee.filterDimension  = document.querySelector('[name="filterDimension"]:checked').value;
 
 			Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
 			Marquee.els.$dateButtons.forEach(button => {
@@ -434,8 +439,9 @@
 			Marquee.els.$groupButtons.forEach(button => {
 				button.addEventListener('change', Marquee.changeGrouping);
 			});
-			Marquee.els.$filterButtons.forEach(button => {
-				button.addEventListener('change', Marquee.changeFilter);
+			Marquee.els.$filterFormat.addEventListener('change', Marquee.changeFilterFormat);
+			Marquee.els.$filterDimensionButtons.forEach(button => {
+				button.addEventListener('change', Marquee.changeFilterDimension);
 			});
 
 			if (localStorage.getItem('zip')) {
@@ -480,9 +486,9 @@
 							type="radio"
 							${i === 0 ? ' checked' : ''}
 						>
-						<radio-label>
+						<input-label>
 							${date.format('ddd')}<br>${date.format('MMM D')}
-						</radio-label>
+						</input-label>
 					</label>
 				`);
 			}
@@ -508,9 +514,14 @@
 			}
 		},
 
-		changeFilter: function() {
+		changeFilterFormat: function() {
+			Marquee.filterFormatImax = this.checked;
+			Marquee.renderShowtimes();
+		},
+
+		changeFilterDimension: function() {
 			if (this.checked) {
-				Marquee.filterBy = this.value;
+				Marquee.filterDimension = this.value;
 				Marquee.renderShowtimes();
 			}
 		},
@@ -623,28 +634,32 @@
 			const hasImax = showtimes.some(s => s.imax);
 			const has3D   = showtimes.some(s => s.threed);
 
-			document.querySelector('[name="filterBy"][value="IMAX"]').disabled = !hasImax;
-			document.querySelector('[name="filterBy"][value="3D"]').disabled   = !has3D;
+			Marquee.els.$filterFormat.disabled                                      = !hasImax;
+			document.querySelector('[name="filterDimension"][value="3D"]').disabled = !has3D;
 
-			if ((Marquee.filterBy === 'IMAX' && !hasImax) || (Marquee.filterBy === '3D' && !has3D)) {
-				document.querySelector('[name="filterBy"][value="All"]').checked = true;
-				Marquee.filterBy = 'All';
+			if (Marquee.filterFormatImax && !hasImax) {
+				Marquee.els.$filterFormat.checked = false;
+				Marquee.filterFormatImax = false;
+			}
+			if (Marquee.filterDimension === '3D' && !has3D) {
+				document.querySelector('[name="filterDimension"][value="Both"]').checked = true;
+				Marquee.filterDimension = 'Both';
 			}
 		},
 
 		filteredBlockHtml: function(block) {
-			if (Marquee.filterBy === 'All') return block.html;
-			const flag = Marquee.filterBy === 'IMAX' ? 'imax' : 'threed';
+			if (!Marquee.filterFormatImax && Marquee.filterDimension === 'Both') return block.html;
 			let html = '';
 			block.showtimesKeys.forEach(key => {
 				const s = block.showtimes[key];
-				if (s[flag]) {
-					html += `
-						<li data-threed="${s.threed}" data-imax="${s.imax}">
-							${Marquee.createShowtimeLink(s)}
-						</li>
-					`;
-				}
+				if (Marquee.filterFormatImax && !s.imax)           return;
+				if (Marquee.filterDimension === '3D' && !s.threed) return;
+				if (Marquee.filterDimension === '2D' && s.threed)  return;
+				html += `
+					<li data-threed="${s.threed}" data-imax="${s.imax}">
+						${Marquee.createShowtimeLink(s)}
+					</li>
+				`;
 			});
 			return html;
 		},
