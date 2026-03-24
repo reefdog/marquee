@@ -718,6 +718,7 @@
 				directors:   movie.directors?.length  ? movie.directors  : null,
 				topCast:     movie.topCast?.length    ? movie.topCast    : null,
 				advisories:  movie.advisories?.length ? movie.advisories : null,
+				genres:      movie.genres?.length     ? movie.genres     : null,
 				animated:    !!movie.animation,
 			};
 			Marquee.createMovieMetadata(movie.rootId);
@@ -733,6 +734,7 @@
 			if (movie.description) detailContents.push(`<p>${movie.description}</p>`);
 			if (movie.directors)   detailContents.push(`<p><b>Directed by:</b> ${movie.directors.join(', ')}</p>`);
 			if (movie.topCast)     detailContents.push(`<p><b>Starring:</b> ${movie.topCast.join(', ')}</p>`);
+			if (movie.genres)      detailContents.push(`<p><i>${movie.genres.join(', ')}</i></p>`);
 			if (detailContents.length) { metadata.push(`
 				<details class="dropdown">
 					<summary class="dropdown-trigger">
