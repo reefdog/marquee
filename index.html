@@ -475,9 +475,9 @@
 
 			if (zip)             { document.querySelector('[name="zip"]').value = zip; }
 			if (radius)          { document.querySelector('[name="radius"]').value = radius; }
-			if (groupBy)         { document.querySelector(`[name="groupBy"][value="${groupBy}"]`).checked = true; }
-			if (filterDimension) { document.querySelector(`[name="filterDimension"][value="${filterDimension}"]`).checked = true; }
-			if (filterFormat)    { document.querySelector(`[name="filterFormat"][value="${filterFormat}"]`).checked = true; }
+			if (groupBy)         { const el = document.querySelector(`[name="groupBy"][value="${groupBy}"]`); if (el) el.checked = true; }
+			if (filterDimension) { const el = document.querySelector(`[name="filterDimension"][value="${filterDimension}"]`); if (el) el.checked = true; }
+			if (filterFormat)    { const el = document.querySelector(`[name="filterFormat"][value="${filterFormat}"]`); if (el) el.checked = true; }
 		},
 
 		savePreferences: function() {
