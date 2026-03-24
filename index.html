@@ -512,7 +512,7 @@
 				html += `
 					<section class="primary-section">
 						<h1 class="primary-label">${primaryEntity.label}</h1>
-						<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>
+						${primaryEntity.metadata.length ? `<ul class="primary-metadata"><li>${primaryEntity.metadata.join('</li><li>')}</li></ul>` : ''}
 						<div class="secondary-sections">
 							<div class="secondary-sections-col">${leftCol}</div>
 							<div class="secondary-sections-col">${rightCol}</div>
