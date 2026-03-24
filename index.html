@@ -370,9 +370,8 @@
 			<label class="block-radio-button"><input value="Movie"   name="groupBy" type="radio" checked> <input-label>Movie</input-label></label>
 			<label class="block-radio-button"><input value="Theater" name="groupBy" type="radio">         <input-label>Theater</input-label></label>
 		</input-group>
-		<input-group role="radiogroup" aria-label="Filter to only">
-			<label class="block-radio-button"><input value="All"  name="filterFormat" type="radio" checked> <input-label>All</input-label></label>
-			<label class="block-radio-button"><input value="IMAX" name="filterFormat" type="radio">         <input-label>IMAX</input-label></label>
+		<input-group aria-label="Format">
+			<label class="block-checkbox"><input value="IMAX" name="filterFormat" type="checkbox"> <input-label>IMAX only</input-label></label>
 		</input-group>
 		<input-group role="radiogroup" aria-label="Dimension">
 			<label class="block-radio-button"><input value="Both" name="filterDimension" type="radio" checked> <input-label>Both</input-label></label>
@@ -411,7 +410,7 @@
 			Marquee.loadPreferences();
 			Marquee.setupDates();
 			Marquee.updateGroupings();
-			Marquee.filterFormatImax = document.querySelector('[name="filterFormat"]:checked').value === 'IMAX';
+			Marquee.filterFormatImax = !!document.querySelector('[name="filterFormat"][value="IMAX"]:checked');
 			Marquee.filterDimension  = document.querySelector('[name="filterDimension"]:checked').value;
 
 			Marquee.els.$getShowtimesForm.addEventListener('submit', Marquee.submitShowtimesForm);
@@ -466,7 +465,7 @@
 			localStorage.setItem('radius',          document.querySelector('[name="radius"]').value);
 			localStorage.setItem('groupBy',         document.querySelector('[name="groupBy"]:checked').value);
 			localStorage.setItem('filterDimension', document.querySelector('[name="filterDimension"]:checked').value);
-			localStorage.setItem('filterFormat',    document.querySelector('[name="filterFormat"]:checked').value);
+			localStorage.setItem('filterFormat',    document.querySelector('[name="filterFormat"]:checked')?.value ?? '');
 		},
 
 		setupDates: function() {
@@ -511,12 +510,10 @@
 		},
 
 		changeFilterFormat: function() {
-			if (this.checked) {
-				Marquee.filterFormatImax = this.value === 'IMAX';
-				Marquee.updateFilterAvailability();
-				Marquee.savePreferences();
-				Marquee.renderShowtimes();
-			}
+			Marquee.filterFormatImax = this.checked;
+			Marquee.updateFilterAvailability();
+			Marquee.savePreferences();
+			Marquee.renderShowtimes();
 		},
 
 		changeFilterDimension: function() {
@@ -647,7 +644,7 @@
 			document.querySelector('[name="filterDimension"][value="2D"]').disabled = !twoDAvailable;
 
 			if (Marquee.filterFormatImax && !imaxAvailable) {
-				document.querySelector('[name="filterFormat"][value="All"]').checked = true;
+				document.querySelector('[name="filterFormat"][value="IMAX"]').checked = false;
 				Marquee.filterFormatImax = false;
 			}
 			if (Marquee.filterDimension === '3D' && !threeDAvailable) {
