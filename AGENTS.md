@@ -9,7 +9,7 @@ A single-page web app that fetches movie showtimes from the Gracenote (TMS) API 
 - **Entry point**: `index.html` (embedded CSS + JS, no build tool — edit directly)
 - **All application logic**: `window.Marquee` namespace object in the `<script>` block
 - **Dependencies**: `assets/` directory only (dayjs, js-cookie, sjcl, normalize.css) — no CDN, no npm
-- **Deployment**: `bundle exec s3_website_revived push` (AWS credentials in `.env`)
+- **Deployment**: `bundle exec s3_website push` (AWS credentials in `.env`)
 - **`files/`**: reference mockups and a sample API response — never deployed
 
 ## Architecture
