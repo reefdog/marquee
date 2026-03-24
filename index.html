@@ -516,12 +516,14 @@
 
 		changeFilterFormat: function() {
 			Marquee.filterFormatImax = this.checked;
+			Marquee.updateFilterAvailability();
 			Marquee.renderShowtimes();
 		},
 
 		changeFilterDimension: function() {
 			if (this.checked) {
 				Marquee.filterDimension = this.value;
+				Marquee.updateFilterAvailability();
 				Marquee.renderShowtimes();
 			}
 		},
@@ -630,18 +632,29 @@
 		},
 
 		updateFilterAvailability: function() {
-			const showtimes = Object.values(Marquee.showtimeBlocks).flatMap(b => Object.values(b.showtimes));
-			const hasImax = showtimes.some(s => s.imax);
-			const has3D   = showtimes.some(s => s.threed);
+			const { imax2D, imax3D, nonImax2D, nonImax3D } = Marquee.availability;
+			const imax  = Marquee.filterFormatImax;
+			const dim   = Marquee.filterDimension;
 
-			Marquee.els.$filterFormat.disabled                                      = !hasImax;
-			document.querySelector('[name="filterDimension"][value="3D"]').disabled = !has3D;
+			const imaxAvailable = dim === 'Both' ? (imax2D || imax3D)
+			                    : dim === '2D'   ? imax2D
+			                    :                  imax3D;
+			const threeDAvailable = imax ? imax3D : (imax3D || nonImax3D);
+			const twoDAvailable   = imax ? imax2D : (imax2D || nonImax2D);
 
-			if (Marquee.filterFormatImax && !hasImax) {
+			Marquee.els.$filterFormat.disabled                                      = !imaxAvailable;
+			document.querySelector('[name="filterDimension"][value="3D"]').disabled = !threeDAvailable;
+			document.querySelector('[name="filterDimension"][value="2D"]').disabled = !twoDAvailable;
+
+			if (Marquee.filterFormatImax && !imaxAvailable) {
 				Marquee.els.$filterFormat.checked = false;
 				Marquee.filterFormatImax = false;
 			}
-			if (Marquee.filterDimension === '3D' && !has3D) {
+			if (Marquee.filterDimension === '3D' && !threeDAvailable) {
+				document.querySelector('[name="filterDimension"][value="Both"]').checked = true;
+				Marquee.filterDimension = 'Both';
+			}
+			if (Marquee.filterDimension === '2D' && !twoDAvailable) {
 				document.querySelector('[name="filterDimension"][value="Both"]').checked = true;
 				Marquee.filterDimension = 'Both';
 			}
@@ -719,6 +732,13 @@
 			});
 			Marquee.createShowtimeHTML();
 			Marquee.groupShowtimes();
+			const showtimes = Object.values(Marquee.showtimeBlocks).flatMap(b => Object.values(b.showtimes));
+			Marquee.availability = {
+				imax2D:    showtimes.some(s =>  s.imax && !s.threed),
+				imax3D:    showtimes.some(s =>  s.imax &&  s.threed),
+				nonImax2D: showtimes.some(s => !s.imax && !s.threed),
+				nonImax3D: showtimes.some(s => !s.imax &&  s.threed),
+			};
 		},
 
 		createMovie: function(movie) {
