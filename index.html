@@ -781,7 +781,7 @@
 						<svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.6em" height="0.6em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M 3 2 L 7 5"/><path d="M 7 5 L 3 8"/></svg>
 					</summary>
 					<dropdown-contents>
-						<ul><li>${movie.advisories.join('</li><li>')}</li></ul>
+						<p>The MPAA rated this movie ${movie.rating} for: ${movie.advisories.join(', ')}</p>
 					</dropdown-contents>
 				</details>`); }
 			else if (movie.rating) { metadata.push(movie.rating); }
