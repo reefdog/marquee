@@ -231,12 +231,12 @@
 	<form id="get-showtimes-form" action="https://data.tmsapi.com/v1.1/movies/showings" method="GET">
 		<input name="password" type="hidden" value="casablanca">
 		<input-group id="geo-options">
-			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP" aria-label="ZIP code" autofocus>
-			<select name="radius" aria-label="Search radius in miles">
-				<option>5</option>
-				<option>10</option>
-				<option>50</option>
-				<option>100</option>
+			<input name="zip" type="text" inputmode="numeric" pattern="[0-9]{5}" placeholder="ZIP code" aria-label="ZIP code" autofocus>
+			<select name="radius" aria-label="Search radius">
+				<option value="5">5 miles</option>
+				<option value="10">10 miles</option>
+				<option value="50">50 miles</option>
+				<option value="100">100 miles</option>
 			</select>
 			<button type="submit">Find</button>
 		</input-group>
