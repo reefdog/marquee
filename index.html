@@ -426,7 +426,7 @@
 		},
 
 		init: function() {
-			Marquee.loadCookies();
+			Marquee.loadPreferences();
 			Marquee.setupDates();
 			Marquee.updateGroupings();
 			Marquee.filterFormatImax = false;
@@ -463,15 +463,26 @@
 			attempt();
 		},
 
-		loadCookies: function() {
-			const zip = localStorage.getItem('zip');
-			if (zip) {
-				document.querySelector('[name="zip"]').value = zip;
-			}
+		loadPreferences: function() {
+			const zip             = localStorage.getItem('zip');
+			const radius          = localStorage.getItem('radius');
+			const groupBy         = localStorage.getItem('groupBy');
+			const filterDimension = localStorage.getItem('filterDimension');
+			const filterFormat    = localStorage.getItem('filterFormat');
+
+			if (zip)             { document.querySelector('[name="zip"]').value = zip; }
+			if (radius)          { document.querySelector('[name="radius"]').value = radius; }
+			if (groupBy)         { document.querySelector(`[name="groupBy"][value="${groupBy}"]`).checked = true; }
+			if (filterDimension) { document.querySelector(`[name="filterDimension"][value="${filterDimension}"]`).checked = true; }
+			if (filterFormat)    { document.querySelector('[name="filterFormat"]').checked = filterFormat === 'true'; }
 		},
 
-		saveCookies: function() {
-			localStorage.setItem('zip', document.querySelector('[name="zip"]').value);
+		savePreferences: function() {
+			localStorage.setItem('zip',             document.querySelector('[name="zip"]').value);
+			localStorage.setItem('radius',          document.querySelector('[name="radius"]').value);
+			localStorage.setItem('groupBy',         document.querySelector('[name="groupBy"]:checked').value);
+			localStorage.setItem('filterDimension', document.querySelector('[name="filterDimension"]:checked').value);
+			localStorage.setItem('filterFormat',    document.querySelector('[name="filterFormat"]').checked);
 		},
 
 		setupDates: function() {
@@ -509,6 +520,7 @@
 
 		changeGrouping: function() {
 			Marquee.updateGroupings();
+			Marquee.savePreferences();
 			if (this.checked) {
 				Marquee.renderShowtimes();
 			}
@@ -517,6 +529,7 @@
 		changeFilterFormat: function() {
 			Marquee.filterFormatImax = this.checked;
 			Marquee.updateFilterAvailability();
+			Marquee.savePreferences();
 			Marquee.renderShowtimes();
 		},
 
@@ -524,6 +537,7 @@
 			if (this.checked) {
 				Marquee.filterDimension = this.value;
 				Marquee.updateFilterAvailability();
+				Marquee.savePreferences();
 				Marquee.renderShowtimes();
 			}
 		},
@@ -605,7 +619,7 @@
 					}
 					return;
 				}
-				Marquee.saveCookies();
+				Marquee.savePreferences();
 				Marquee.apiShowtimeCache[Marquee.makeCacheKey()] = data;
 				Marquee.renderFromCache();
 			} catch (err) {
