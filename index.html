@@ -145,6 +145,11 @@
 			}
 			& a {
 				color: #333;
+				text-decoration: underline;
+
+				&:hover {
+					text-decoration: none;
+				}
 			}
 		}
 
@@ -565,8 +570,8 @@
 		createMovie: function(movie) {
 			Marquee.dataForMovie[movie.rootId] = Marquee.dataForMovie[movie.rootId] || {
 				label:       movie.title || '[no title]',
-				year:        movie.releaseYear || '[no year]',
-				releaseDate: movie.releaseDate || '[no date]',
+				year:        movie.releaseYear || null,
+				releaseDate: movie.releaseDate || null,
 				rating:      movie.ratings ? movie.ratings[0].code : null,
 				site:        movie.officialUrl || null,
 				language:    movie.titleLang || null,
@@ -578,8 +583,8 @@
 		createMovieMetadata: function(id) {
 			const movie    = Marquee.dataForMovie[id];
 			const metadata = [];
-			if (parseInt(movie.year) !== parseInt(dayjs().format('YYYY'))) { metadata.push(movie.year); }
-			if (movie.releaseDate !== '[no date]') { metadata.push(movie.releaseDate); }
+			const year = movie.year || movie.releaseDate?.substring(0, 4) || null;
+			if (year) { metadata.push(year); }
 			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
 			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
 			if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
