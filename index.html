@@ -189,16 +189,25 @@
 				position-area: bottom left;
 				z-index: 11;
 
+				display: flex;
+				flex-direction: column;
+				gap: 0.5lh;
 				width: max-content;
 				max-width: min(calc(100dvw - (var(--body--padding) * 4)), 50ch);
+				padding: 1rem;
+
 				background-color: white;
 				color: black;
 				border: 1px solid #777;
 				box-shadow: 0.25rem 0.25rem 0 rgba(0,0,0,0.25);
-				padding: 1rem;
 				font-size: 1.4rem;
 				line-height: 1.4;
 				text-wrap: pretty;
+
+				p {
+					margin: 0;
+					padding: 0;
+				}
 			}
 		}
 
@@ -700,6 +709,8 @@
 				language:    movie.titleLang || null,
 				runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
 				description: movie.longDescription || null,
+				directors:   movie.directors?.length ? movie.directors : null,
+				topCast:     movie.topCast?.length   ? movie.topCast   : null,
 			};
 			Marquee.createMovieMetadata(movie.rootId);
 		},
@@ -707,24 +718,29 @@
 		createMovieMetadata: function(id) {
 			const movie    = Marquee.dataForMovie[id];
 			const metadata = [];
-			if (movie.description) { metadata.push(`
+			const year = movie.year || movie.releaseDate?.substring(0, 4) || null;
+			const trailerQuery = new URLSearchParams({search_query: [movie.label, year, 'trailer'].filter(Boolean).join(' ')});
+
+			const detailContents = [];
+			if (movie.description) detailContents.push(`<p>${movie.description}</p>`);
+			if (movie.directors)   detailContents.push(`<p><b>Directed by:</b> ${movie.directors.join(', ')}</p>`);
+			if (movie.topCast)     detailContents.push(`<p><b>Starring:</b> ${movie.topCast.join(', ')}</p>`);
+			if (detailContents.length) { metadata.push(`
 				<details class="dropdown">
 					<summary class="dropdown-trigger">
-						Description
+						About
 						<svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.6em" height="0.6em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path/><path/></svg>
 					</summary>
-					<dropdown-contents>${movie.description}</dropdown-contents>
+					<dropdown-contents>${detailContents.join('')}</dropdown-contents>
 				</details>`); }
-			const year = movie.year || movie.releaseDate?.substring(0, 4) || null;
-			if (year) { metadata.push(year); }
-			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
-			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
-			const trailerQuery = new URLSearchParams({search_query: [movie.label, year, 'trailer'].filter(Boolean).join(' ')});
 			metadata.push(`
 				<a class="external" href="https://www.youtube.com/results?${trailerQuery}" target="_blank" rel="noopener noreferrer">
 					Trailers
 					<svg class="arrow-external" width="1em" height="1em" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path/><path/><path/></svg>
 				</a>`);
+			if (year) { metadata.push(year); }
+			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
+			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
 			Marquee.dataForMovie[id].metadata = metadata;
 		},
 
