@@ -66,6 +66,7 @@
 			&:hover {
 				text-decoration: underline;
 			}
+
 			& .threed-blue { color: blue; }
 			& .threed-red  { color: red; }
 
@@ -73,6 +74,10 @@
 				display: inline-flex;
 				align-items: center;
 				gap: 0.5ch;
+
+				&:focus-visible {
+					outline-offset: 0.25em;
+				}
 
 				.arrow-external path {
 					transition: d var(--animation-timing) ease;
@@ -122,10 +127,18 @@
 
 			> .dropdown-trigger {
 				cursor: pointer;
-				border-bottom: 1px solid currentColor;
+				border-bottom: 1px dotted currentColor;
+				transition: border-bottom-color var(--animation-timing) ease;
 
 				&:hover {
 					border-bottom-color: transparent;
+				}
+
+				&:hover, &:focus-visible {
+					.chevron path {
+						&:first-child { d: path("M 2 1 L 7 5"); }
+						&:last-child  { d: path("M 7 5 L 2 9"); }
+					}
 				}
 
 				&:focus-visible {
