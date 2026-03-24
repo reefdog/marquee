@@ -10,9 +10,14 @@
 		:root {
 			--body--padding: 1rem;
 			--body--gap: 7rem;
+
+			@media (min-width: 900px) {
+				--body--padding: 4rem;
+			}
 		}
 
-		*,*::before,*::after {
+
+		*, *::before, *::after {
 			box-sizing: border-box;
 		}
 
@@ -26,16 +31,13 @@
 			line-height: 150%;
 			color: black;
 			background: white;
+			margin: 0;
 			padding: var(--body--padding);
 			transition: padding 200ms ease-in-out;
 
 			display: flex;
 			flex-direction: column;
 			gap: var(--body--gap);
-
-			@media (min-width: 900px) {
-				--body--padding: 4rem;
-			}
 		}
 
 		header > h1 {
@@ -83,7 +85,7 @@
 
 			& [name="zip"] {
 				width: 10ch;
-				max-width: calc(100vw - var(--body--padding) * 2);
+				max-width: calc(100dvw - (var(--body--padding) * 2));
 				text-align: center;
 			}
 		}
@@ -91,6 +93,75 @@
 		input-group {
 			display: flex;
 			flex-wrap: wrap;
+		}
+
+		.dropdown {
+			position: relative;
+
+			> .dropdown-trigger {
+				cursor: pointer;
+				border-bottom: 1px solid currentColor;
+
+				&:hover {
+					border-bottom-color: transparent;
+				}
+
+				&:focus-visible {
+					outline-offset: 0.25em;
+				}
+
+				/* Hide native disclosure triangle */
+				list-style: none;
+				&::-webkit-details-marker {
+					display: none;
+				}
+
+				/* Add custom disclosure chevron */
+				.chevron path {
+					transition: d 0.25s ease;
+					&:first-child { d: path("M 3 2 L 7 5"); }
+					&:last-child  { d: path("M 7 5 L 3 8"); }
+				}
+
+			}
+
+			&[open] {
+				> .dropdown-trigger {
+					color: black;
+					border-bottom-color: transparent;
+
+					.chevron path {
+						&:first-child { d: path("M 2 2 L 8 8"); }
+						&:last-child  { d: path("M 8 2 L 2 8"); }
+					}
+
+					&::before {
+						content: ' ';
+						display: block;
+						position: fixed;
+						inset: 0;
+						cursor: default;
+						z-index: 10;
+					}
+				}
+			}
+
+			> dropdown-contents {
+				position: absolute;
+				position-area: bottom left;
+				z-index: 11;
+
+				width: max-content;
+				max-width: min(calc(100dvw - (var(--body--padding) * 4)), 50ch);
+				background-color: white;
+				color: black;
+				border: 1px solid #777;
+				box-shadow: 0.25rem 0.25rem 0 rgba(0,0,0,0.25);
+				padding: 1rem;
+				font-size: 1.4rem;
+				line-height: 1.4;
+				text-wrap: pretty;
+			}
 		}
 
 		.primary-section {
@@ -142,7 +213,8 @@
 			margin: 0;
 			padding: 0;
 			list-style-type: none;
-			font-size: 80%;
+			font-size: 1.4rem;
+			line-height: 1.4;
 			color: #777;
 
 			& li {
@@ -581,9 +653,9 @@
 				year:        movie.releaseYear || null,
 				releaseDate: movie.releaseDate || null,
 				rating:      movie.ratings ? movie.ratings[0].code : null,
-				site:        movie.officialUrl || null,
 				language:    movie.titleLang || null,
 				runtime:     movie.runTime ? movie.runTime.replace('PT0', '').replace('PT', '') : null,
+				description: movie.longDescription || null,
 			};
 			Marquee.createMovieMetadata(movie.rootId);
 		},
@@ -591,11 +663,18 @@
 		createMovieMetadata: function(id) {
 			const movie    = Marquee.dataForMovie[id];
 			const metadata = [];
+			if (movie.description) { metadata.push(`
+				<details class="dropdown">
+					<summary class="dropdown-trigger">
+						Description
+						<svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="0.6em" height="0.6em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path/><path/></svg>
+					</summary>
+					<dropdown-contents>${movie.description}</dropdown-contents>
+				</details>`); }
 			const year = movie.year || movie.releaseDate?.substring(0, 4) || null;
 			if (year) { metadata.push(year); }
 			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
 			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
-			if (movie.site) { metadata.push(`<a href="${movie.site}">Site</a>`); }
 			Marquee.dataForMovie[id].metadata = metadata;
 		},
 
