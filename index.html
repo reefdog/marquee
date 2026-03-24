@@ -29,7 +29,7 @@
 		}
 
 		body {
-			font-family: Inconsolata, 'Courier Prime', monospace;
+			font-family: Inconsolata, 'Courier Prime', monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
 			font-size: 1.6rem;
 			line-height: 150%;
 			color: black;
@@ -718,6 +718,7 @@
 				directors:   movie.directors?.length  ? movie.directors  : null,
 				topCast:     movie.topCast?.length    ? movie.topCast    : null,
 				advisories:  movie.advisories?.length ? movie.advisories : null,
+				animated:    !!movie.animation,
 			};
 			Marquee.createMovieMetadata(movie.rootId);
 		},
@@ -753,6 +754,7 @@
 			else if (movie.rating) { metadata.push(movie.rating); }
 			if (year) { metadata.push(year); }
 			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
+			if (movie.animated) { metadata.push('✍️ Animated'); }
 			metadata.push(`
 				<a class="external" href="https://www.youtube.com/results?${trailerQuery}" target="_blank" rel="noopener noreferrer">
 					Trailers
