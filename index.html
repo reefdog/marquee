@@ -11,6 +11,8 @@
 			--body--padding: 1rem;
 			--body--gap: 7rem;
 
+			--animation-timing: 0.25s;
+
 			@media (min-width: 900px) {
 				--body--padding: 4rem;
 			}
@@ -66,6 +68,26 @@
 			}
 			& .threed-blue { color: blue; }
 			& .threed-red  { color: red; }
+
+			&.external {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5ch;
+
+				.arrow-external path {
+					transition: d var(--animation-timing) ease;
+					&:nth-child(1) { d: path("M 3.5 6.5 L 6.5 3.5"); }
+					&:nth-child(2) { d: path("M 6.5 3.5 L 3.5 3.5"); }
+					&:nth-child(3) { d: path("M 6.5 3.5 L 6.5 6.5"); }
+				}
+				&:hover, &:focus-visible {
+					.arrow-external path {
+						&:nth-child(1) { d: path("M 2.5 7.5 L 7.5 2.5"); }
+						&:nth-child(2) { d: path("M 7.5 2.5 L 4.5 2.5"); }
+						&:nth-child(3) { d: path("M 7.5 2.5 L 7.5 5.5"); }
+					}
+				}
+			}
 		}
 
 		button, select, input {
@@ -117,8 +139,12 @@
 				}
 
 				/* Add custom disclosure chevron */
+				display: inline-flex;
+				align-items: center;
+				gap: 1ch;
+
 				.chevron path {
-					transition: d 0.25s ease;
+					transition: d var(--animation-timing) ease;
 					&:first-child { d: path("M 3 2 L 7 5"); }
 					&:last-child  { d: path("M 7 5 L 3 8"); }
 				}
@@ -221,11 +247,15 @@
 				padding: 0;
 			}
 			& a {
-				color: #333;
-				text-decoration: underline;
+				text-decoration: none;
+				border-bottom: 1px solid currentColor;
 
 				&:hover {
-					text-decoration: none;
+					border-bottom-color: transparent;
+				}
+
+				&:visited {
+					color: #999;
 				}
 			}
 		}
@@ -330,6 +360,7 @@
 </header>
 
 <main id="showtimes"></main>
+
 
 <script>
 	<!-- DayJS 1.11.18 -->
@@ -675,6 +706,12 @@
 			if (year) { metadata.push(year); }
 			if (movie.runtime) { metadata.push(movie.runtime.toLowerCase()); }
 			if (movie.rating) { metadata.push(`Rated ${movie.rating}`); }
+			const trailerQuery = new URLSearchParams({search_query: [movie.label, year, 'trailer'].filter(Boolean).join(' ')});
+			metadata.push(`
+				<a class="external" href="https://www.youtube.com/results?${trailerQuery}" target="_blank" rel="noopener noreferrer">
+					Trailers
+					<svg class="arrow-external" width="1em" height="1em" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path/><path/><path/></svg>
+				</a>`);
 			Marquee.dataForMovie[id].metadata = metadata;
 		},
 
